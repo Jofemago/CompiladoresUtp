@@ -11,27 +11,58 @@ tokens = [
 'FINETIQUETA',
 'TRUE',
 'FALSE',
+'IF',
+'ELSE',
+'ECHO',
 
 #simbolos
 'MINUS',
 'PLUS',
-'INTEGER',
+'INTEGER',#MEJORARLO COMO FUNCION
+'LPARENT',
+'RPARENT',
+'LCURBRACE',
+'RCURBRACE',
+'STRING',  #MEJORARLO COMO FUNCION
 'CIERRE'
 ]
+t_ignore = ' \t'
+
+
+
+
+t_INICIOETIQUETA = r'<\?php'
+t_FINETIQUETA = r'\?>'
+t_TRUE = r'TRUE|true|True'
+t_FALSE = r'FALSE|False|false'
+t_IF = r'if'
+t_ELSE = r'else'
+t_ECHO = r'echo'
 
 
 t_MINUS = r'\-'
 t_PLUS = r'\+'
-t_TRUE = r'TRUE|true|True'
-t_FALSE = r'FALSE|False|false'
-t_INICIOETIQUETA = r'<\?php'
-t_FINETIQUETA = r'\?>'
-t_INTEGER = r'\d+'
+#t_INTEGER = r'\d+'
+t_LPARENT = r'\('
+t_RPARENT = r'\)'
+t_LCURBRACE = r'\{'
+t_RCURBRACE = r'\}'
+#t_STRING = r'\'(.)*\''
+
+
+
 
 t_CIERRE = r';'
 
+def t_INTEGER(t):
+    r'\d+'
+    t.value = int(t.value)
+    return t
 
-t_ignore = ' \t'
+def t_STRING(t):
+    r'\'(.)*\'|\"(.)*\"'
+    t.value = str(t.value)
+    return t
 
 
 def t_newline(t):
