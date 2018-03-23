@@ -1,0 +1,245 @@
+Created by PLY version 3.10 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> exp
+Rule 1     exp -> exp SUM term
+Rule 2     exp -> exp RES term
+Rule 3     exp -> term
+Rule 4     term -> term MUL factor
+Rule 5     term -> term DIV factor
+Rule 6     term -> factor
+Rule 7     factor -> NUMERO
+Rule 8     factor -> APAREN exp CPAREN
+
+Terminals, with rules where they appear
+
+APAREN               : 8
+CPAREN               : 8
+DIV                  : 5
+MUL                  : 4
+NUMERO               : 7
+RES                  : 2
+SUM                  : 1
+error                : 
+
+Nonterminals, with rules where they appear
+
+exp                  : 1 2 8 0
+factor               : 4 5 6
+term                 : 1 2 3 4 5
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . exp
+    (1) exp -> . exp SUM term
+    (2) exp -> . exp RES term
+    (3) exp -> . term
+    (4) term -> . term MUL factor
+    (5) term -> . term DIV factor
+    (6) term -> . factor
+    (7) factor -> . NUMERO
+    (8) factor -> . APAREN exp CPAREN
+
+    NUMERO          shift and go to state 4
+    APAREN          shift and go to state 2
+
+    term                           shift and go to state 3
+    factor                         shift and go to state 1
+    exp                            shift and go to state 5
+
+state 1
+
+    (6) term -> factor .
+
+    MUL             reduce using rule 6 (term -> factor .)
+    DIV             reduce using rule 6 (term -> factor .)
+    SUM             reduce using rule 6 (term -> factor .)
+    RES             reduce using rule 6 (term -> factor .)
+    $end            reduce using rule 6 (term -> factor .)
+    CPAREN          reduce using rule 6 (term -> factor .)
+
+
+state 2
+
+    (8) factor -> APAREN . exp CPAREN
+    (1) exp -> . exp SUM term
+    (2) exp -> . exp RES term
+    (3) exp -> . term
+    (4) term -> . term MUL factor
+    (5) term -> . term DIV factor
+    (6) term -> . factor
+    (7) factor -> . NUMERO
+    (8) factor -> . APAREN exp CPAREN
+
+    NUMERO          shift and go to state 4
+    APAREN          shift and go to state 2
+
+    term                           shift and go to state 3
+    factor                         shift and go to state 1
+    exp                            shift and go to state 6
+
+state 3
+
+    (3) exp -> term .
+    (4) term -> term . MUL factor
+    (5) term -> term . DIV factor
+
+    SUM             reduce using rule 3 (exp -> term .)
+    RES             reduce using rule 3 (exp -> term .)
+    $end            reduce using rule 3 (exp -> term .)
+    CPAREN          reduce using rule 3 (exp -> term .)
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+
+
+state 4
+
+    (7) factor -> NUMERO .
+
+    MUL             reduce using rule 7 (factor -> NUMERO .)
+    DIV             reduce using rule 7 (factor -> NUMERO .)
+    SUM             reduce using rule 7 (factor -> NUMERO .)
+    RES             reduce using rule 7 (factor -> NUMERO .)
+    $end            reduce using rule 7 (factor -> NUMERO .)
+    CPAREN          reduce using rule 7 (factor -> NUMERO .)
+
+
+state 5
+
+    (0) S' -> exp .
+    (1) exp -> exp . SUM term
+    (2) exp -> exp . RES term
+
+    SUM             shift and go to state 9
+    RES             shift and go to state 10
+
+
+state 6
+
+    (8) factor -> APAREN exp . CPAREN
+    (1) exp -> exp . SUM term
+    (2) exp -> exp . RES term
+
+    CPAREN          shift and go to state 11
+    SUM             shift and go to state 9
+    RES             shift and go to state 10
+
+
+state 7
+
+    (4) term -> term MUL . factor
+    (7) factor -> . NUMERO
+    (8) factor -> . APAREN exp CPAREN
+
+    NUMERO          shift and go to state 4
+    APAREN          shift and go to state 2
+
+    factor                         shift and go to state 12
+
+state 8
+
+    (5) term -> term DIV . factor
+    (7) factor -> . NUMERO
+    (8) factor -> . APAREN exp CPAREN
+
+    NUMERO          shift and go to state 4
+    APAREN          shift and go to state 2
+
+    factor                         shift and go to state 13
+
+state 9
+
+    (1) exp -> exp SUM . term
+    (4) term -> . term MUL factor
+    (5) term -> . term DIV factor
+    (6) term -> . factor
+    (7) factor -> . NUMERO
+    (8) factor -> . APAREN exp CPAREN
+
+    NUMERO          shift and go to state 4
+    APAREN          shift and go to state 2
+
+    term                           shift and go to state 14
+    factor                         shift and go to state 1
+
+state 10
+
+    (2) exp -> exp RES . term
+    (4) term -> . term MUL factor
+    (5) term -> . term DIV factor
+    (6) term -> . factor
+    (7) factor -> . NUMERO
+    (8) factor -> . APAREN exp CPAREN
+
+    NUMERO          shift and go to state 4
+    APAREN          shift and go to state 2
+
+    term                           shift and go to state 15
+    factor                         shift and go to state 1
+
+state 11
+
+    (8) factor -> APAREN exp CPAREN .
+
+    MUL             reduce using rule 8 (factor -> APAREN exp CPAREN .)
+    DIV             reduce using rule 8 (factor -> APAREN exp CPAREN .)
+    SUM             reduce using rule 8 (factor -> APAREN exp CPAREN .)
+    RES             reduce using rule 8 (factor -> APAREN exp CPAREN .)
+    $end            reduce using rule 8 (factor -> APAREN exp CPAREN .)
+    CPAREN          reduce using rule 8 (factor -> APAREN exp CPAREN .)
+
+
+state 12
+
+    (4) term -> term MUL factor .
+
+    MUL             reduce using rule 4 (term -> term MUL factor .)
+    DIV             reduce using rule 4 (term -> term MUL factor .)
+    SUM             reduce using rule 4 (term -> term MUL factor .)
+    RES             reduce using rule 4 (term -> term MUL factor .)
+    $end            reduce using rule 4 (term -> term MUL factor .)
+    CPAREN          reduce using rule 4 (term -> term MUL factor .)
+
+
+state 13
+
+    (5) term -> term DIV factor .
+
+    MUL             reduce using rule 5 (term -> term DIV factor .)
+    DIV             reduce using rule 5 (term -> term DIV factor .)
+    SUM             reduce using rule 5 (term -> term DIV factor .)
+    RES             reduce using rule 5 (term -> term DIV factor .)
+    $end            reduce using rule 5 (term -> term DIV factor .)
+    CPAREN          reduce using rule 5 (term -> term DIV factor .)
+
+
+state 14
+
+    (1) exp -> exp SUM term .
+    (4) term -> term . MUL factor
+    (5) term -> term . DIV factor
+
+    SUM             reduce using rule 1 (exp -> exp SUM term .)
+    RES             reduce using rule 1 (exp -> exp SUM term .)
+    $end            reduce using rule 1 (exp -> exp SUM term .)
+    CPAREN          reduce using rule 1 (exp -> exp SUM term .)
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+
+
+state 15
+
+    (2) exp -> exp RES term .
+    (4) term -> term . MUL factor
+    (5) term -> term . DIV factor
+
+    SUM             reduce using rule 2 (exp -> exp RES term .)
+    RES             reduce using rule 2 (exp -> exp RES term .)
+    $end            reduce using rule 2 (exp -> exp RES term .)
+    CPAREN          reduce using rule 2 (exp -> exp RES term .)
+    MUL             shift and go to state 7
+    DIV             shift and go to state 8
+
