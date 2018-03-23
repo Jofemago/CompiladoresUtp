@@ -3,6 +3,11 @@ import sys
 
 
 '''falta implementar arreglos'''
+#dudas
+#preguntar si hay que definir += , -= ... etc
+#preguntar si definir aqui incremento == y decremento
+#pregubtar sobre nombre de funciones
+#problema archivo de concatenaciones
 
 #list of tokens
 tokens = [
@@ -13,6 +18,7 @@ tokens = [
 'FALSE',
 'IF',
 'ELSE',
+'ELSEIF',
 'ECHO',
 'FUNCTION',
 
@@ -24,8 +30,14 @@ tokens = [
 'RPARENT',
 'LCURBRACE',
 'RCURBRACE',
+'LCORCHETE',
+'RCORCHETE',
 'STRING',  #MEJORARLO COMO FUNCION
 'ID',
+'DOSPUNTOS',
+
+#operador de asingacion,
+"EQUAL",
 
 #operadores aritmeticos
 'MINUS',
@@ -45,29 +57,46 @@ tokens = [
 'MENOR',
 'MENORIG',
 
+
+#operadoresde string
+
 #operadores logicos
-#'AND',
-#'OR',
-#'NOT',
+'AND',
+'OR',
+'XOR',
+'NOT',
 
 
+#operador de STRING
+'CONCATSTR',
+
+
+#estructuras de control
+'WHILE',
+'DO',
+'FOR',
 
 
 'CIERRE',
 ]
+
+
+
 t_ignore = ' \t'
 
 
-t_ID = r'\$[a-zA-Z][_a-zA-Z0-9]*'
-
+t_ID = r'\$(_)?[a-zA-Z][_a-zA-Z0-9]*'
+#t_FUNCNAME = r'[a-zA-Z][_a-zA-Z0-9]*'
 t_INICIOETIQUETA = r'<\?php'
 t_FINETIQUETA = r'\?>'
 t_TRUE = r'TRUE|true|True'
 t_FALSE = r'FALSE|False|false'
 t_IF = r'if'
 t_ELSE = r'else'
+t_ELSEIF = r'elseif'
 t_ECHO = r'echo'
-t_FUNCTION = r'function\ [a-zA-Z][_a-zA-Z0-9]*'
+t_FUNCTION = r'function'#\ [a-zA-Z][_a-zA-Z0-9]*'
+t_DOSPUNTOS = r':'
 
 #t_FUNCNAME = r'[a-zA-Z][_a-zA-Z0-9]*'
 #t_INTEGER = r'\d+'
@@ -75,6 +104,8 @@ t_LPARENT = r'\('
 t_RPARENT = r'\)'
 t_LCURBRACE = r'\{'
 t_RCURBRACE = r'\}'
+t_LCORCHETE = r'\['
+t_RCORCHETE = r']'
 #t_STRING = r'\'(.)*\''
 
 #operadores aritmeticos
@@ -85,7 +116,10 @@ t_DIV   = r'/'
 t_MODULO = r'%'
 t_EXPONENCIACION = r'\*\*'
 
-#OPERADORES logicos
+#OPERADORES de asignacion
+t_EQUAL = r'='
+
+#OPERADORES Comparacion
 t_IDENTICO = r'==='
 t_IGUAL = r'=='
 t_NOIGUAL = r'!=='
@@ -94,14 +128,21 @@ t_MAYORIG = r'>='
 t_MENOR = r'<'
 t_MENORIG = r'<='
 
-'''t_AND = r''
-t_OR = r''
-t_NOT = r'''''
 
+#operadoreslogicos
+t_AND = r'and|&&'
+t_OR = r'or|\|\|'
+t_NOT = r'!'
+t_XOR = r'xor'
 
+#OPERADORES DE STRING
+t_CONCATSTR = r'\.'
 t_CIERRE = r';'
 
-
+#estructuras de control
+t_WHILE = r'while'
+t_DO = r'do'
+t_FOR = r'for'
 
 
 

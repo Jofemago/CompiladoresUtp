@@ -1,0 +1,11 @@
+<?php
+
+// --------------------
+// foo() nunca será llamado ya que los operadores están en cortocircuito
+
+$a = (false && foo());
+$b = (true  || foo());
+$c = (false and foo());
+$d = (true  or  foo());
+
+?>
