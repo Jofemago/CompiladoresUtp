@@ -1,21 +1,8 @@
-//pipe
-
-
 <?php
-/*otra
-prueba
-basica
-*/
 
-;
-(-415741)
-'prueba de string' //pruebadeestring
-"otra prueba jeje"
-FALSE
-False
-false
-?>
+function b(){
 
-{
-//este trabajo es para el viernes
+  echo "hola mundo";
 }
+
+?>
