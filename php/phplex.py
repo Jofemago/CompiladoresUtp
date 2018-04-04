@@ -2,18 +2,9 @@ import ply.lex as lex
 import sys
 
 
-'''falta implementar arreglos'''
-#dudas
-#preguntar si hay que definir += , -= ... etc
-#preguntar si definir aqui incremento == y decremento
-#pregubtar sobre nombre de funciones
-#problema archivo de concatenaciones
-
 #list of tokens
 tokens = [
 #simbolos reservados
-'INICIOETIQUETA',
-'FINETIQUETA',
 'TRUE',
 'FALSE',
 'IF',
@@ -21,6 +12,7 @@ tokens = [
 'ELSEIF',
 'ECHO',
 'FUNCTION',
+'NFUNCTION',
 
 
 #simbolos
@@ -33,6 +25,7 @@ tokens = [
 'LCORCHETE',
 'RCORCHETE',
 'STRING',  #MEJORARLO COMO FUNCION
+'STRINGG',
 'ID',
 'DOSPUNTOS',
 
@@ -85,28 +78,14 @@ tokens = [
 t_ignore = ' \t'
 
 
-t_ID = r'\$(_)?[a-zA-Z][_a-zA-Z0-9]*'
-#t_FUNCNAME = r'[a-zA-Z][_a-zA-Z0-9]*'
-t_INICIOETIQUETA = r'<\?php'
-t_FINETIQUETA = r'\?>'
-t_TRUE = r'TRUE|true|True'
-t_FALSE = r'FALSE|False|false'
-t_IF = r'if'
-t_ELSE = r'else'
-t_ELSEIF = r'elseif'
-t_ECHO = r'echo'
-t_FUNCTION = r'function'#\ [a-zA-Z][_a-zA-Z0-9]*'
-t_DOSPUNTOS = r':'
 
-#t_FUNCNAME = r'[a-zA-Z][_a-zA-Z0-9]*'
-#t_INTEGER = r'\d+'
+t_DOSPUNTOS = r':'
 t_LPARENT = r'\('
 t_RPARENT = r'\)'
 t_LCURBRACE = r'\{'
 t_RCURBRACE = r'\}'
 t_LCORCHETE = r'\['
 t_RCORCHETE = r']'
-#t_STRING = r'\'(.)*\''
 
 #operadores aritmeticos
 t_MINUS = r'\-'
@@ -129,21 +108,20 @@ t_MENOR = r'<'
 t_MENORIG = r'<='
 
 
-#operadoreslogicos
-t_AND = r'and|&&'
-t_OR = r'or|\|\|'
-t_NOT = r'!'
-t_XOR = r'xor'
-
 #OPERADORES DE STRING
 t_CONCATSTR = r'\.'
 t_CIERRE = r';'
 
-#estructuras de control
-t_WHILE = r'while'
-t_DO = r'do'
-t_FOR = r'for'
 
+
+def t_comments(t):
+    r'/\*(.|\n)*?\*/'
+    t.lexer.lineno += t.value.count('\n')
+
+
+def t_comments_C99(t):
+    r'//(.)*?\n'
+    t.lexer.lineno += 1
 
 
 def t_INTEGER(t):
@@ -152,23 +130,86 @@ def t_INTEGER(t):
     return t
 
 def t_STRING(t):
-    r'\'(.)*\'|\"(.)*\"'
+    r'\"[a-zA-Z_0-9\&\.\-\_\+\*\$\%\@\!\xc2\xa1\/\\\#\?\xc2\xbf\(\)\|\=\{\}\[\]\>\<\,\: \t]*\"'
     t.value = str(t.value)
     return t
 
+def t_STRINGG(t):
+    r'\'[a-zA-Z_0-9\&\.\-\_\+\*\$\%\@\!\xc2\xa1\/\\\#\?\xc2\xbf\(\)\|\=\{\}\[\]\>\<\,\: \t]*\''
+    t.value = str(t.value)
+    return t
 
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
-def t_comments(t):
-    r'/\*(.|\n)*?\*/'
-    t.lexer.lineno += t.value.count('\n')
+def t_FUNCTION(t):
+    r'function'
+    return t
 
-def t_comments_C99(t):
-    r'//(.)*?\n'
-    t.lexer.lineno += 1
 
+def t_TRUE(t):
+    r'TRUE|true|True'
+    return t
+
+def t_FALSE(t):
+    r'FALSE|False|false'
+    return t
+
+def t_IF(t):
+    r'if'
+    return t
+
+def t_ELSE(t):
+    r'else'
+    return t
+
+def t_ELSEIF(t):
+    r'elseif'
+    return t
+
+def t_ECHO(t):
+    r'echo'
+    return t
+
+
+#operadoreslogicos
+def t_AND(t):
+    r'and|&&'
+    return t
+
+def t_OR(t):
+    r'or|\|\|'
+    return t
+
+
+def t_NOT(t):
+    r'!'
+    return t
+
+def t_XOR(t):
+    r'xor'
+    return t
+#estructuras de control
+def t_WHILE(t):
+    r'while'
+    return t
+
+def t_DO(t):
+    r'do'
+    return t
+
+def t_FOR(t):
+    r'for'
+    return t
+
+def t_ID(t):
+    r'\$(_)?[a-zA-Z][a-zA-Z_0-9]*'
+    return t
+
+def t_NFUNCTION(t):
+    r'[a-zA-Z][a-zA-Z_0-9]*'
+    return t
 def t_error(t):
     print ("Lexical error: " + str(t.value[0]))
     t.lexer.skip(1)

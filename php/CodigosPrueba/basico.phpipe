@@ -1,14 +1,10 @@
-<?php
+
 
 function b(){
 
   echo "hola mundo";
 }
 
-?>
 
-
-<?php
 echo $_POST['username'];
 echo $_REQUEST['username'];
-?>
