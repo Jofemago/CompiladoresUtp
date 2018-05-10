@@ -1,0 +1,191 @@
+Created by PLY version 3.10 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    DOSPUNTOS
+    INTEGER
+    LCORCHETE
+    PLUS
+    MENOR
+    DIV
+    TRUE
+    FUNCTION
+    NFUNCTION
+    ELSEIF
+    RPARENT
+    WHILE
+    MODULO
+    MAYOR
+    ELSE
+    AND
+    MAYORIG
+    OR
+    DO
+    ID
+    EXPONENCIACION
+    FOR
+    TIMES
+    RCORCHETE
+    CONCATSTR
+    LPARENT
+    XOR
+    IF
+    STRING
+    FALSE
+    LCURBRACE
+    MENORIG
+    MINUS
+    ECHO
+    IGUAL
+    NOIGUAL
+    EQUAL
+    RCURBRACE
+    IDENTICO
+    NOT
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> declaracion_sentencias
+Rule 2     declaracion_sentencias -> bloques declaracion_sentencias
+Rule 3     declaracion_sentencias -> bloques
+Rule 4     bloques -> import
+Rule 5     import -> INCLUDE STRINGG CIERRE
+
+Terminals, with rules where they appear
+
+AND                  : 
+CIERRE               : 5
+CONCATSTR            : 
+DIV                  : 
+DO                   : 
+DOSPUNTOS            : 
+ECHO                 : 
+ELSE                 : 
+ELSEIF               : 
+EQUAL                : 
+EXPONENCIACION       : 
+FALSE                : 
+FOR                  : 
+FUNCTION             : 
+ID                   : 
+IDENTICO             : 
+IF                   : 
+IGUAL                : 
+INCLUDE              : 5
+INTEGER              : 
+LCORCHETE            : 
+LCURBRACE            : 
+LPARENT              : 
+MAYOR                : 
+MAYORIG              : 
+MENOR                : 
+MENORIG              : 
+MINUS                : 
+MODULO               : 
+NFUNCTION            : 
+NOIGUAL              : 
+NOT                  : 
+OR                   : 
+PLUS                 : 
+RCORCHETE            : 
+RCURBRACE            : 
+RPARENT              : 
+STRING               : 
+STRINGG              : 5
+TIMES                : 
+TRUE                 : 
+WHILE                : 
+XOR                  : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+bloques              : 2 3
+declaracion_sentencias : 1 2
+import               : 4
+program              : 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . declaracion_sentencias
+    (2) declaracion_sentencias -> . bloques declaracion_sentencias
+    (3) declaracion_sentencias -> . bloques
+    (4) bloques -> . import
+    (5) import -> . INCLUDE STRINGG CIERRE
+
+    INCLUDE         shift and go to state 4
+
+    program                        shift and go to state 1
+    declaracion_sentencias         shift and go to state 3
+    import                         shift and go to state 5
+    bloques                        shift and go to state 2
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (2) declaracion_sentencias -> bloques . declaracion_sentencias
+    (3) declaracion_sentencias -> bloques .
+    (2) declaracion_sentencias -> . bloques declaracion_sentencias
+    (3) declaracion_sentencias -> . bloques
+    (4) bloques -> . import
+    (5) import -> . INCLUDE STRINGG CIERRE
+
+    $end            reduce using rule 3 (declaracion_sentencias -> bloques .)
+    INCLUDE         shift and go to state 4
+
+    bloques                        shift and go to state 2
+    declaracion_sentencias         shift and go to state 6
+    import                         shift and go to state 5
+
+state 3
+
+    (1) program -> declaracion_sentencias .
+
+    $end            reduce using rule 1 (program -> declaracion_sentencias .)
+
+
+state 4
+
+    (5) import -> INCLUDE . STRINGG CIERRE
+
+    STRINGG         shift and go to state 7
+
+
+state 5
+
+    (4) bloques -> import .
+
+    INCLUDE         reduce using rule 4 (bloques -> import .)
+    $end            reduce using rule 4 (bloques -> import .)
+
+
+state 6
+
+    (2) declaracion_sentencias -> bloques declaracion_sentencias .
+
+    $end            reduce using rule 2 (declaracion_sentencias -> bloques declaracion_sentencias .)
+
+
+state 7
+
+    (5) import -> INCLUDE STRINGG . CIERRE
+
+    CIERRE          shift and go to state 8
+
+
+state 8
+
+    (5) import -> INCLUDE STRINGG CIERRE .
+
+    INCLUDE         reduce using rule 5 (import -> INCLUDE STRINGG CIERRE .)
+    $end            reduce using rule 5 (import -> INCLUDE STRINGG CIERRE .)
+

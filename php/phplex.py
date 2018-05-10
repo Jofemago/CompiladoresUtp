@@ -13,7 +13,7 @@ tokens = [
 'ECHO',
 'FUNCTION',
 'NFUNCTION',
-
+'INCLUDE',
 
 #simbolos
 #'FUNCNAME',
@@ -122,7 +122,13 @@ def t_comments(t):
 def t_comments_C99(t):
     r'//(.)*?\n'
     t.lexer.lineno += 1
-
+def t_INCLUDE(t):
+    r'include'
+    return t
+    
+def t_ID(t):
+    r'\$(_)?[0-9]*[a-zA-Z][a-zA-Z_0-9]*|\$(_)?[0-9]*'
+    return t
 
 def t_INTEGER(t):
     r'\d+'
@@ -203,9 +209,6 @@ def t_FOR(t):
     r'for'
     return t
 
-def t_ID(t):
-    r'\$(_)?[a-zA-Z][a-zA-Z_0-9]*'
-    return t
 
 def t_NFUNCTION(t):
     r'[a-zA-Z][a-zA-Z_0-9]*'

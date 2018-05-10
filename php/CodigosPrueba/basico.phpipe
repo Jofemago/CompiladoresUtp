@@ -5,6 +5,6 @@ function b(){
   echo "hola mundo";
 }
 
-
+$5= "hola";
 echo $_POST['username'];
 echo $_REQUEST['username'];
