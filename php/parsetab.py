@@ -5,9 +5,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'TRUE FALSE IF ELSE ELSEIF ECHO FUNCTION NFUNCTION INCLUDE INTEGER LPARENT RPARENT LCURBRACE RCURBRACE LCORCHETE RCORCHETE STRING STRINGG ID DOSPUNTOS EQUAL MINUS PLUS TIMES DIV MODULO EXPONENCIACION IGUAL NOIGUAL IDENTICO MAYOR MAYORIG MENOR MENORIG AND OR XOR NOT CONCATSTR WHILE DO FOR CIERREprogram : declaracion_sentenciasdeclaracion_sentencias : bloques declaracion_sentencias\n                                | bloquesbloques : importimport : INCLUDE STRINGG CIERRE'
+_lr_signature = 'TRUE FALSE IF ELSE ELSEIF ECHO FUNCTION NFUNCTION INCLUDE INTEGER LPARENT RPARENT LCURBRACE RCURBRACE LCORCHETE RCORCHETE STRING STRINGG ID DOSPUNTOS EQUAL MINUS PLUS TIMES DIV MODULO EXPONENCIACION IGUAL NOIGUAL IDENTICO MAYOR MAYORIG MENOR MENORIG AND OR XOR NOT CONCATSTR WHILE DO FOR COMMA CIERREprogram : import declaracion_sentencias\n                | import\n                | declaracion_sentenciasdeclaracion_sentencias : sentencias declaracion_sentencias\n                                | sentenciassentencias : sentassign\n                    | call_function CIERRE\n                    sentassign :  ID EQUAL exp CIERREbool : TRUE\n            | FALSE oplogicos : AND\n                    | OR\n                    | XOR\n                    | NOT exp : expsimple  opcomparacion  expsimple\n            | LPARENT expsimple  opcomparacion  expsimple RPARENT\n            | expsimpleopcomparacion : IGUAL\n                        | NOIGUAL\n                        | IDENTICO\n                        | MAYOR\n                        | MAYORIG\n                        | MENOR\n                        | MENORIGexpsimple :  expsimple  opsuma term\n                | termterm : term opmult factor\n            | factorfactor : INTEGER\n                | ID\n                | call_function\n                | LPARENT expsimple RPARENTtypevar : INTEGER\n                | STRING\n                | STRINGG\n                | TRUE\n                | FALSEopsuma : PLUS\n                | MINUS opmult : TIMES\n                | DIV\n                | MODULO\n                | EXPONENCIACION cond : type\n            | cond opcomparacion cond\n            | cond oplogicos cond\n            | LPARENT type RPARENT\n            | LPARENT cond RPARENTtype : typevar\n\t\t\t\t| var_declaration_genvar_declaration_gen : ID\n    \t\t\t\t\t\t| ID PLUS PLUS\n                            | ID MINUS MINUS\n    \t\t\t\t\t\t| MINUS MINUS  ID\n                            | PLUS PLUS ID\n    \t\t\t\t\t\t| typevar\n                            | exp arg : var_declaration_gen\n\t\t\t| type\n\t\t\t| expsimple\n\t\t\t| type COMMA arg\n\t\t\t| STRING\n            | STRINGG\n\t\t\t| var_declaration_gen COMMA arg\n\t\t\t| STRING COMMA arg\n            | STRINGG COMMA arg\n            |call_function : NFUNCTION\n\t\t\t\t\t\t| NFUNCTION LPARENT arg RPARENTimport : INCLUDE STRINGG CIERREempty : '
     
-_lr_action_items = {'CIERRE':([7,],[8,]),'$end':([1,2,3,5,6,8,],[0,-3,-1,-4,-2,-5,]),'STRINGG':([4,],[7,]),'INCLUDE':([0,2,5,8,],[4,4,-4,-5,]),}
+_lr_action_items = {'COMMA':([6,17,19,20,21,23,25,27,28,29,31,32,33,34,35,36,38,66,67,69,71,72,73,76,78,79,82,],[-68,-31,-26,-30,-29,-28,-49,59,-57,60,62,-30,-36,-29,65,-37,-17,-69,-27,-32,-15,-25,-55,-54,-52,-53,-16,]),'NOIGUAL':([6,17,19,20,21,23,24,32,34,38,46,66,67,69,72,],[-68,-31,-26,-30,-29,-28,47,-30,-29,47,47,-69,-27,-32,-25,]),'IGUAL':([6,17,19,20,21,23,24,32,34,38,46,66,67,69,72,],[-68,-31,-26,-30,-29,-28,48,-30,-29,48,48,-69,-27,-32,-25,]),'TIMES':([6,17,19,20,21,23,32,34,66,67,69,72,],[-68,-31,43,-30,-29,-28,-30,-29,-69,-27,-32,43,]),'MAYORIG':([6,17,19,20,21,23,24,32,34,38,46,66,67,69,72,],[-68,-31,-26,-30,-29,-28,49,-30,-29,49,49,-69,-27,-32,-25,]),'PLUS':([6,14,17,19,20,21,23,24,26,32,34,38,46,59,60,62,63,65,66,67,68,69,71,72,81,],[-68,26,-31,-26,-30,-29,-28,50,58,63,-29,50,50,26,26,26,78,26,-69,-27,50,-32,50,-25,50,]),'EXPONENCIACION':([6,17,19,20,21,23,32,34,66,67,69,72,],[-68,-31,40,-30,-29,-28,-30,-29,-69,-27,-32,40,]),'NFUNCTION':([0,3,7,8,10,13,14,16,22,39,40,41,42,43,44,45,47,48,49,50,51,52,53,54,55,56,57,59,60,62,65,70,],[6,6,6,-6,-7,6,6,-70,6,-8,-43,-41,-42,-40,6,6,-19,-18,-22,-38,-39,-24,-21,-23,-20,6,6,6,6,6,6,6,]),'DIV':([6,17,19,20,21,23,32,34,66,67,69,72,],[-68,-31,41,-30,-29,-28,-30,-29,-69,-27,-32,41,]),'MAYOR':([6,17,19,20,21,23,24,32,34,38,46,66,67,69,72,],[-68,-31,-26,-30,-29,-28,53,-30,-29,53,53,-69,-27,-32,-25,]),'LPARENT':([6,13,14,22,40,41,42,43,44,45,47,48,49,50,51,52,53,54,55,56,57,59,60,62,65,70,],[14,22,22,45,-43,-41,-42,-40,45,45,-19,-18,-22,-38,-39,-24,-21,-23,-20,45,45,22,22,22,22,45,]),'MODULO':([6,17,19,20,21,23,32,34,66,67,69,72,],[-68,-31,42,-30,-29,-28,-30,-29,-69,-27,-32,42,]),'STRING':([14,59,60,62,65,],[29,29,29,29,29,]),'RPARENT':([6,14,17,19,20,21,23,25,27,28,29,31,32,33,34,35,36,37,38,46,59,60,62,65,66,67,68,69,71,72,73,74,75,76,77,78,79,80,81,82,],[-68,-67,-31,-26,-30,-29,-28,-49,-59,-57,-34,-35,-30,-36,-29,-50,-37,66,-17,69,-67,-67,-67,-67,-69,-27,69,-32,-15,-25,-55,-61,-65,-54,-66,-52,-53,-64,82,-16,]),'TRUE':([14,59,60,62,65,],[33,33,33,33,33,]),'EQUAL':([5,],[13,]),'INCLUDE':([0,],[4,]),'MINUS':([6,14,17,19,20,21,23,24,30,32,34,38,46,59,60,62,64,65,66,67,68,69,71,72,81,],[-68,30,-31,-26,-30,-29,-28,51,61,64,-29,51,51,30,30,30,79,30,-69,-27,51,-32,51,-25,51,]),'MENORIG':([6,17,19,20,21,23,24,32,34,38,46,66,67,69,72,],[-68,-31,-26,-30,-29,-28,52,-30,-29,52,52,-69,-27,-32,-25,]),'STRINGG':([4,14,59,60,62,65,],[12,31,31,31,31,31,]),'ID':([0,3,7,8,10,13,14,16,22,39,40,41,42,43,44,45,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,65,70,],[5,5,5,-6,-7,20,32,-70,20,-8,-43,-41,-42,-40,20,20,-19,-18,-22,-38,-39,-24,-21,-23,-20,20,20,73,32,32,76,32,32,20,]),'$end':([2,3,7,8,9,10,11,15,16,39,],[0,-2,-5,-6,-3,-7,-1,-4,-70,-8,]),'INTEGER':([13,14,22,40,41,42,43,44,45,47,48,49,50,51,52,53,54,55,56,57,59,60,62,65,70,],[21,34,21,-43,-41,-42,-40,21,21,-19,-18,-22,-38,-39,-24,-21,-23,-20,21,21,34,34,34,34,21,]),'MENOR':([6,17,19,20,21,23,24,32,34,38,46,66,67,69,72,],[-68,-31,-26,-30,-29,-28,54,-30,-29,54,54,-69,-27,-32,-25,]),'FALSE':([14,59,60,62,65,],[36,36,36,36,36,]),'IDENTICO':([6,17,19,20,21,23,24,32,34,38,46,66,67,69,72,],[-68,-31,-26,-30,-29,-28,55,-30,-29,55,55,-69,-27,-32,-25,]),'CIERRE':([1,6,12,17,18,19,20,21,23,24,66,67,69,71,72,82,],[10,-68,16,-31,39,-26,-30,-29,-28,-17,-69,-27,-32,-15,-25,-16,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'program':([0,],[1,]),'declaracion_sentencias':([0,2,],[3,6,]),'import':([0,2,],[5,5,]),'bloques':([0,2,],[2,2,]),}
+_lr_goto_items = {'call_function':([0,3,7,13,14,22,44,45,56,57,59,60,62,65,70,],[1,1,1,17,17,17,17,17,17,17,17,17,17,17,17,]),'program':([0,],[2,]),'typevar':([14,59,60,62,65,],[25,25,25,25,25,]),'term':([13,14,22,45,56,57,59,60,62,65,70,],[19,19,19,19,19,72,19,19,19,19,19,]),'import':([0,],[3,]),'type':([14,59,60,62,65,],[27,27,27,27,27,]),'factor':([13,14,22,44,45,56,57,59,60,62,65,70,],[23,23,23,67,23,23,23,23,23,23,23,23,]),'opmult':([19,72,],[44,44,]),'exp':([13,14,59,60,62,65,],[18,28,28,28,28,28,]),'sentencias':([0,3,7,],[7,7,7,]),'sentassign':([0,3,7,],[8,8,8,]),'var_declaration_gen':([14,59,60,62,65,],[35,35,35,35,35,]),'declaracion_sentencias':([0,3,7,],[9,11,15,]),'arg':([14,59,60,62,65,],[37,74,75,77,80,]),'expsimple':([13,14,22,45,56,59,60,62,65,70,],[24,38,46,68,71,38,38,38,38,81,]),'opcomparacion':([24,38,46,],[56,56,70,]),'opsuma':([24,38,46,68,71,81,],[57,57,57,57,57,57,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,9 +26,75 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> program","S'",1,None,None,None),
-  ('program -> declaracion_sentencias','program',1,'p_inicio','phpparser.py',12),
-  ('declaracion_sentencias -> bloques declaracion_sentencias','declaracion_sentencias',2,'p_declaracion_sentencias','phpparser.py',16),
-  ('declaracion_sentencias -> bloques','declaracion_sentencias',1,'p_declaracion_sentencias','phpparser.py',17),
-  ('bloques -> import','bloques',1,'p_bloques','phpparser.py',21),
-  ('import -> INCLUDE STRINGG CIERRE','import',3,'p_import','phpparser.py',27),
+  ('program -> import declaracion_sentencias','program',2,'p_inicio','phpparser.py',11),
+  ('program -> import','program',1,'p_inicio','phpparser.py',12),
+  ('program -> declaracion_sentencias','program',1,'p_inicio','phpparser.py',13),
+  ('declaracion_sentencias -> sentencias declaracion_sentencias','declaracion_sentencias',2,'p_declaracion_sentencias','phpparser.py',18),
+  ('declaracion_sentencias -> sentencias','declaracion_sentencias',1,'p_declaracion_sentencias','phpparser.py',19),
+  ('sentencias -> sentassign','sentencias',1,'p_sentencias','phpparser.py',24),
+  ('sentencias -> call_function CIERRE','sentencias',2,'p_sentencias','phpparser.py',25),
+  ('sentassign -> ID EQUAL exp CIERRE','sentassign',4,'p_sentassign','phpparser.py',32),
+  ('bool -> TRUE','bool',1,'p_booleanos','phpparser.py',40),
+  ('bool -> FALSE','bool',1,'p_booleanos','phpparser.py',41),
+  ('oplogicos -> AND','oplogicos',1,'p_operadoreslogicos','phpparser.py',45),
+  ('oplogicos -> OR','oplogicos',1,'p_operadoreslogicos','phpparser.py',46),
+  ('oplogicos -> XOR','oplogicos',1,'p_operadoreslogicos','phpparser.py',47),
+  ('oplogicos -> NOT','oplogicos',1,'p_operadoreslogicos','phpparser.py',48),
+  ('exp -> expsimple opcomparacion expsimple','exp',3,'p_exp','phpparser.py',56),
+  ('exp -> LPARENT expsimple opcomparacion expsimple RPARENT','exp',5,'p_exp','phpparser.py',57),
+  ('exp -> expsimple','exp',1,'p_exp','phpparser.py',58),
+  ('opcomparacion -> IGUAL','opcomparacion',1,'p_opcomparacion','phpparser.py',63),
+  ('opcomparacion -> NOIGUAL','opcomparacion',1,'p_opcomparacion','phpparser.py',64),
+  ('opcomparacion -> IDENTICO','opcomparacion',1,'p_opcomparacion','phpparser.py',65),
+  ('opcomparacion -> MAYOR','opcomparacion',1,'p_opcomparacion','phpparser.py',66),
+  ('opcomparacion -> MAYORIG','opcomparacion',1,'p_opcomparacion','phpparser.py',67),
+  ('opcomparacion -> MENOR','opcomparacion',1,'p_opcomparacion','phpparser.py',68),
+  ('opcomparacion -> MENORIG','opcomparacion',1,'p_opcomparacion','phpparser.py',69),
+  ('expsimple -> expsimple opsuma term','expsimple',3,'p_expression_simple','phpparser.py',75),
+  ('expsimple -> term','expsimple',1,'p_expression_simple','phpparser.py',76),
+  ('term -> term opmult factor','term',3,'p_term','phpparser.py',80),
+  ('term -> factor','term',1,'p_term','phpparser.py',81),
+  ('factor -> INTEGER','factor',1,'p_factor','phpparser.py',85),
+  ('factor -> ID','factor',1,'p_factor','phpparser.py',86),
+  ('factor -> call_function','factor',1,'p_factor','phpparser.py',87),
+  ('factor -> LPARENT expsimple RPARENT','factor',3,'p_factor','phpparser.py',88),
+  ('typevar -> INTEGER','typevar',1,'p_typevar','phpparser.py',92),
+  ('typevar -> STRING','typevar',1,'p_typevar','phpparser.py',93),
+  ('typevar -> STRINGG','typevar',1,'p_typevar','phpparser.py',94),
+  ('typevar -> TRUE','typevar',1,'p_typevar','phpparser.py',95),
+  ('typevar -> FALSE','typevar',1,'p_typevar','phpparser.py',96),
+  ('opsuma -> PLUS','opsuma',1,'p_opsuma','phpparser.py',100),
+  ('opsuma -> MINUS','opsuma',1,'p_opsuma','phpparser.py',101),
+  ('opmult -> TIMES','opmult',1,'p_opmult','phpparser.py',105),
+  ('opmult -> DIV','opmult',1,'p_opmult','phpparser.py',106),
+  ('opmult -> MODULO','opmult',1,'p_opmult','phpparser.py',107),
+  ('opmult -> EXPONENCIACION','opmult',1,'p_opmult','phpparser.py',108),
+  ('cond -> type','cond',1,'p_cond','phpparser.py',112),
+  ('cond -> cond opcomparacion cond','cond',3,'p_cond','phpparser.py',113),
+  ('cond -> cond oplogicos cond','cond',3,'p_cond','phpparser.py',114),
+  ('cond -> LPARENT type RPARENT','cond',3,'p_cond','phpparser.py',115),
+  ('cond -> LPARENT cond RPARENT','cond',3,'p_cond','phpparser.py',116),
+  ('type -> typevar','type',1,'p_type','phpparser.py',121),
+  ('type -> var_declaration_gen','type',1,'p_type','phpparser.py',122),
+  ('var_declaration_gen -> ID','var_declaration_gen',1,'p_var_declaration_gen','phpparser.py',126),
+  ('var_declaration_gen -> ID PLUS PLUS','var_declaration_gen',3,'p_var_declaration_gen','phpparser.py',127),
+  ('var_declaration_gen -> ID MINUS MINUS','var_declaration_gen',3,'p_var_declaration_gen','phpparser.py',128),
+  ('var_declaration_gen -> MINUS MINUS ID','var_declaration_gen',3,'p_var_declaration_gen','phpparser.py',129),
+  ('var_declaration_gen -> PLUS PLUS ID','var_declaration_gen',3,'p_var_declaration_gen','phpparser.py',130),
+  ('var_declaration_gen -> typevar','var_declaration_gen',1,'p_var_declaration_gen','phpparser.py',131),
+  ('var_declaration_gen -> exp','var_declaration_gen',1,'p_var_declaration_gen','phpparser.py',132),
+  ('arg -> var_declaration_gen','arg',1,'p_arg','phpparser.py',136),
+  ('arg -> type','arg',1,'p_arg','phpparser.py',137),
+  ('arg -> expsimple','arg',1,'p_arg','phpparser.py',138),
+  ('arg -> type COMMA arg','arg',3,'p_arg','phpparser.py',139),
+  ('arg -> STRING','arg',1,'p_arg','phpparser.py',140),
+  ('arg -> STRINGG','arg',1,'p_arg','phpparser.py',141),
+  ('arg -> var_declaration_gen COMMA arg','arg',3,'p_arg','phpparser.py',142),
+  ('arg -> STRING COMMA arg','arg',3,'p_arg','phpparser.py',143),
+  ('arg -> STRINGG COMMA arg','arg',3,'p_arg','phpparser.py',144),
+  ('arg -> <empty>','arg',0,'p_arg','phpparser.py',145),
+  ('call_function -> NFUNCTION','call_function',1,'p_call_function','phpparser.py',153),
+  ('call_function -> NFUNCTION LPARENT arg RPARENT','call_function',4,'p_call_function','phpparser.py',154),
+  ('import -> INCLUDE STRINGG CIERRE','import',3,'p_import','phpparser.py',158),
+  ('empty -> <empty>','empty',0,'p_empty','phpparser.py',162),
 ]

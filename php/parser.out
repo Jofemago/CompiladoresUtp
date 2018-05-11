@@ -2,190 +2,1607 @@ Created by PLY version 3.10 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
-    DOSPUNTOS
-    INTEGER
     LCORCHETE
-    PLUS
-    MENOR
-    DIV
-    TRUE
-    FUNCTION
-    NFUNCTION
-    ELSEIF
-    RPARENT
-    WHILE
-    MODULO
-    MAYOR
-    ELSE
-    AND
-    MAYORIG
-    OR
-    DO
-    ID
-    EXPONENCIACION
     FOR
-    TIMES
-    RCORCHETE
-    CONCATSTR
-    LPARENT
-    XOR
+    ELSE
     IF
-    STRING
-    FALSE
-    LCURBRACE
-    MENORIG
-    MINUS
-    ECHO
-    IGUAL
-    NOIGUAL
-    EQUAL
+    CONCATSTR
     RCURBRACE
-    IDENTICO
-    NOT
+    WHILE
+    RCORCHETE
+    LCURBRACE
+    DOSPUNTOS
+    DO
+    ECHO
+    ELSEIF
+    FUNCTION
 
 Grammar
 
 Rule 0     S' -> program
-Rule 1     program -> declaracion_sentencias
-Rule 2     declaracion_sentencias -> bloques declaracion_sentencias
-Rule 3     declaracion_sentencias -> bloques
-Rule 4     bloques -> import
-Rule 5     import -> INCLUDE STRINGG CIERRE
+Rule 1     program -> import declaracion_sentencias
+Rule 2     program -> import
+Rule 3     program -> declaracion_sentencias
+Rule 4     declaracion_sentencias -> sentencias declaracion_sentencias
+Rule 5     declaracion_sentencias -> sentencias
+Rule 6     sentencias -> sentassign
+Rule 7     sentencias -> call_function CIERRE
+Rule 8     sentassign -> ID EQUAL exp CIERRE
+Rule 9     bool -> TRUE
+Rule 10    bool -> FALSE
+Rule 11    oplogicos -> AND
+Rule 12    oplogicos -> OR
+Rule 13    oplogicos -> XOR
+Rule 14    oplogicos -> NOT
+Rule 15    exp -> expsimple opcomparacion expsimple
+Rule 16    exp -> LPARENT expsimple opcomparacion expsimple RPARENT
+Rule 17    exp -> expsimple
+Rule 18    opcomparacion -> IGUAL
+Rule 19    opcomparacion -> NOIGUAL
+Rule 20    opcomparacion -> IDENTICO
+Rule 21    opcomparacion -> MAYOR
+Rule 22    opcomparacion -> MAYORIG
+Rule 23    opcomparacion -> MENOR
+Rule 24    opcomparacion -> MENORIG
+Rule 25    expsimple -> expsimple opsuma term
+Rule 26    expsimple -> term
+Rule 27    term -> term opmult factor
+Rule 28    term -> factor
+Rule 29    factor -> INTEGER
+Rule 30    factor -> ID
+Rule 31    factor -> call_function
+Rule 32    factor -> LPARENT expsimple RPARENT
+Rule 33    typevar -> INTEGER
+Rule 34    typevar -> STRING
+Rule 35    typevar -> STRINGG
+Rule 36    typevar -> TRUE
+Rule 37    typevar -> FALSE
+Rule 38    opsuma -> PLUS
+Rule 39    opsuma -> MINUS
+Rule 40    opmult -> TIMES
+Rule 41    opmult -> DIV
+Rule 42    opmult -> MODULO
+Rule 43    opmult -> EXPONENCIACION
+Rule 44    cond -> type
+Rule 45    cond -> cond opcomparacion cond
+Rule 46    cond -> cond oplogicos cond
+Rule 47    cond -> LPARENT type RPARENT
+Rule 48    cond -> LPARENT cond RPARENT
+Rule 49    type -> typevar
+Rule 50    type -> var_declaration_gen
+Rule 51    var_declaration_gen -> ID
+Rule 52    var_declaration_gen -> ID PLUS PLUS
+Rule 53    var_declaration_gen -> ID MINUS MINUS
+Rule 54    var_declaration_gen -> MINUS MINUS ID
+Rule 55    var_declaration_gen -> PLUS PLUS ID
+Rule 56    var_declaration_gen -> typevar
+Rule 57    var_declaration_gen -> exp
+Rule 58    arg -> var_declaration_gen
+Rule 59    arg -> type
+Rule 60    arg -> expsimple
+Rule 61    arg -> type COMMA arg
+Rule 62    arg -> STRING
+Rule 63    arg -> STRINGG
+Rule 64    arg -> var_declaration_gen COMMA arg
+Rule 65    arg -> STRING COMMA arg
+Rule 66    arg -> STRINGG COMMA arg
+Rule 67    arg -> <empty>
+Rule 68    call_function -> NFUNCTION
+Rule 69    call_function -> NFUNCTION LPARENT arg RPARENT
+Rule 70    import -> INCLUDE STRINGG CIERRE
+Rule 71    empty -> <empty>
 
 Terminals, with rules where they appear
 
-AND                  : 
-CIERRE               : 5
+AND                  : 11
+CIERRE               : 7 8 70
+COMMA                : 61 64 65 66
 CONCATSTR            : 
-DIV                  : 
+DIV                  : 41
 DO                   : 
 DOSPUNTOS            : 
 ECHO                 : 
 ELSE                 : 
 ELSEIF               : 
-EQUAL                : 
-EXPONENCIACION       : 
-FALSE                : 
+EQUAL                : 8
+EXPONENCIACION       : 43
+FALSE                : 10 37
 FOR                  : 
 FUNCTION             : 
-ID                   : 
-IDENTICO             : 
+ID                   : 8 30 51 52 53 54 55
+IDENTICO             : 20
 IF                   : 
-IGUAL                : 
-INCLUDE              : 5
-INTEGER              : 
+IGUAL                : 18
+INCLUDE              : 70
+INTEGER              : 29 33
 LCORCHETE            : 
 LCURBRACE            : 
-LPARENT              : 
-MAYOR                : 
-MAYORIG              : 
-MENOR                : 
-MENORIG              : 
-MINUS                : 
-MODULO               : 
-NFUNCTION            : 
-NOIGUAL              : 
-NOT                  : 
-OR                   : 
-PLUS                 : 
+LPARENT              : 16 32 47 48 69
+MAYOR                : 21
+MAYORIG              : 22
+MENOR                : 23
+MENORIG              : 24
+MINUS                : 39 53 53 54 54
+MODULO               : 42
+NFUNCTION            : 68 69
+NOIGUAL              : 19
+NOT                  : 14
+OR                   : 12
+PLUS                 : 38 52 52 55 55
 RCORCHETE            : 
 RCURBRACE            : 
-RPARENT              : 
-STRING               : 
-STRINGG              : 5
-TIMES                : 
-TRUE                 : 
+RPARENT              : 16 32 47 48 69
+STRING               : 34 62 65
+STRINGG              : 35 63 66 70
+TIMES                : 40
+TRUE                 : 9 36
 WHILE                : 
-XOR                  : 
+XOR                  : 13
 error                : 
 
 Nonterminals, with rules where they appear
 
-bloques              : 2 3
-declaracion_sentencias : 1 2
-import               : 4
+arg                  : 61 64 65 66 69
+bool                 : 
+call_function        : 7 31
+cond                 : 45 45 46 46 48
+declaracion_sentencias : 1 3 4
+empty                : 
+exp                  : 8 57
+expsimple            : 15 15 16 16 17 25 32 60
+factor               : 27 28
+import               : 1 2
+opcomparacion        : 15 16 45
+oplogicos            : 46
+opmult               : 27
+opsuma               : 25
 program              : 0
+sentassign           : 6
+sentencias           : 4 5
+term                 : 25 26 27
+type                 : 44 47 59 61
+typevar              : 49 56
+var_declaration_gen  : 50 58 64
 
 Parsing method: LALR
 
 state 0
 
     (0) S' -> . program
-    (1) program -> . declaracion_sentencias
-    (2) declaracion_sentencias -> . bloques declaracion_sentencias
-    (3) declaracion_sentencias -> . bloques
-    (4) bloques -> . import
-    (5) import -> . INCLUDE STRINGG CIERRE
+    (1) program -> . import declaracion_sentencias
+    (2) program -> . import
+    (3) program -> . declaracion_sentencias
+    (70) import -> . INCLUDE STRINGG CIERRE
+    (4) declaracion_sentencias -> . sentencias declaracion_sentencias
+    (5) declaracion_sentencias -> . sentencias
+    (6) sentencias -> . sentassign
+    (7) sentencias -> . call_function CIERRE
+    (8) sentassign -> . ID EQUAL exp CIERRE
+    (68) call_function -> . NFUNCTION
+    (69) call_function -> . NFUNCTION LPARENT arg RPARENT
 
     INCLUDE         shift and go to state 4
+    ID              shift and go to state 5
+    NFUNCTION       shift and go to state 6
 
-    program                        shift and go to state 1
-    declaracion_sentencias         shift and go to state 3
-    import                         shift and go to state 5
-    bloques                        shift and go to state 2
+    call_function                  shift and go to state 1
+    sentencias                     shift and go to state 7
+    sentassign                     shift and go to state 8
+    import                         shift and go to state 3
+    declaracion_sentencias         shift and go to state 9
+    program                        shift and go to state 2
 
 state 1
+
+    (7) sentencias -> call_function . CIERRE
+
+    CIERRE          shift and go to state 10
+
+
+state 2
 
     (0) S' -> program .
 
 
 
-state 2
-
-    (2) declaracion_sentencias -> bloques . declaracion_sentencias
-    (3) declaracion_sentencias -> bloques .
-    (2) declaracion_sentencias -> . bloques declaracion_sentencias
-    (3) declaracion_sentencias -> . bloques
-    (4) bloques -> . import
-    (5) import -> . INCLUDE STRINGG CIERRE
-
-    $end            reduce using rule 3 (declaracion_sentencias -> bloques .)
-    INCLUDE         shift and go to state 4
-
-    bloques                        shift and go to state 2
-    declaracion_sentencias         shift and go to state 6
-    import                         shift and go to state 5
-
 state 3
 
-    (1) program -> declaracion_sentencias .
+    (1) program -> import . declaracion_sentencias
+    (2) program -> import .
+    (4) declaracion_sentencias -> . sentencias declaracion_sentencias
+    (5) declaracion_sentencias -> . sentencias
+    (6) sentencias -> . sentassign
+    (7) sentencias -> . call_function CIERRE
+    (8) sentassign -> . ID EQUAL exp CIERRE
+    (68) call_function -> . NFUNCTION
+    (69) call_function -> . NFUNCTION LPARENT arg RPARENT
 
-    $end            reduce using rule 1 (program -> declaracion_sentencias .)
+    $end            reduce using rule 2 (program -> import .)
+    ID              shift and go to state 5
+    NFUNCTION       shift and go to state 6
 
+    call_function                  shift and go to state 1
+    sentencias                     shift and go to state 7
+    sentassign                     shift and go to state 8
+    declaracion_sentencias         shift and go to state 11
 
 state 4
 
-    (5) import -> INCLUDE . STRINGG CIERRE
+    (70) import -> INCLUDE . STRINGG CIERRE
 
-    STRINGG         shift and go to state 7
+    STRINGG         shift and go to state 12
 
 
 state 5
 
-    (4) bloques -> import .
+    (8) sentassign -> ID . EQUAL exp CIERRE
 
-    INCLUDE         reduce using rule 4 (bloques -> import .)
-    $end            reduce using rule 4 (bloques -> import .)
+    EQUAL           shift and go to state 13
 
 
 state 6
 
-    (2) declaracion_sentencias -> bloques declaracion_sentencias .
+    (68) call_function -> NFUNCTION .
+    (69) call_function -> NFUNCTION . LPARENT arg RPARENT
 
-    $end            reduce using rule 2 (declaracion_sentencias -> bloques declaracion_sentencias .)
+    CIERRE          reduce using rule 68 (call_function -> NFUNCTION .)
+    TIMES           reduce using rule 68 (call_function -> NFUNCTION .)
+    DIV             reduce using rule 68 (call_function -> NFUNCTION .)
+    MODULO          reduce using rule 68 (call_function -> NFUNCTION .)
+    EXPONENCIACION  reduce using rule 68 (call_function -> NFUNCTION .)
+    RPARENT         reduce using rule 68 (call_function -> NFUNCTION .)
+    PLUS            reduce using rule 68 (call_function -> NFUNCTION .)
+    MINUS           reduce using rule 68 (call_function -> NFUNCTION .)
+    COMMA           reduce using rule 68 (call_function -> NFUNCTION .)
+    IGUAL           reduce using rule 68 (call_function -> NFUNCTION .)
+    NOIGUAL         reduce using rule 68 (call_function -> NFUNCTION .)
+    IDENTICO        reduce using rule 68 (call_function -> NFUNCTION .)
+    MAYOR           reduce using rule 68 (call_function -> NFUNCTION .)
+    MAYORIG         reduce using rule 68 (call_function -> NFUNCTION .)
+    MENOR           reduce using rule 68 (call_function -> NFUNCTION .)
+    MENORIG         reduce using rule 68 (call_function -> NFUNCTION .)
+    LPARENT         shift and go to state 14
 
 
 state 7
 
-    (5) import -> INCLUDE STRINGG . CIERRE
+    (4) declaracion_sentencias -> sentencias . declaracion_sentencias
+    (5) declaracion_sentencias -> sentencias .
+    (4) declaracion_sentencias -> . sentencias declaracion_sentencias
+    (5) declaracion_sentencias -> . sentencias
+    (6) sentencias -> . sentassign
+    (7) sentencias -> . call_function CIERRE
+    (8) sentassign -> . ID EQUAL exp CIERRE
+    (68) call_function -> . NFUNCTION
+    (69) call_function -> . NFUNCTION LPARENT arg RPARENT
 
-    CIERRE          shift and go to state 8
+    $end            reduce using rule 5 (declaracion_sentencias -> sentencias .)
+    ID              shift and go to state 5
+    NFUNCTION       shift and go to state 6
 
+    call_function                  shift and go to state 1
+    sentencias                     shift and go to state 7
+    sentassign                     shift and go to state 8
+    declaracion_sentencias         shift and go to state 15
 
 state 8
 
-    (5) import -> INCLUDE STRINGG CIERRE .
+    (6) sentencias -> sentassign .
 
-    INCLUDE         reduce using rule 5 (import -> INCLUDE STRINGG CIERRE .)
-    $end            reduce using rule 5 (import -> INCLUDE STRINGG CIERRE .)
+    ID              reduce using rule 6 (sentencias -> sentassign .)
+    NFUNCTION       reduce using rule 6 (sentencias -> sentassign .)
+    $end            reduce using rule 6 (sentencias -> sentassign .)
 
+
+state 9
+
+    (3) program -> declaracion_sentencias .
+
+    $end            reduce using rule 3 (program -> declaracion_sentencias .)
+
+
+state 10
+
+    (7) sentencias -> call_function CIERRE .
+
+    ID              reduce using rule 7 (sentencias -> call_function CIERRE .)
+    NFUNCTION       reduce using rule 7 (sentencias -> call_function CIERRE .)
+    $end            reduce using rule 7 (sentencias -> call_function CIERRE .)
+
+
+state 11
+
+    (1) program -> import declaracion_sentencias .
+
+    $end            reduce using rule 1 (program -> import declaracion_sentencias .)
+
+
+state 12
+
+    (70) import -> INCLUDE STRINGG . CIERRE
+
+    CIERRE          shift and go to state 16
+
+
+state 13
+
+    (8) sentassign -> ID EQUAL . exp CIERRE
+    (15) exp -> . expsimple opcomparacion expsimple
+    (16) exp -> . LPARENT expsimple opcomparacion expsimple RPARENT
+    (17) exp -> . expsimple
+    (25) expsimple -> . expsimple opsuma term
+    (26) expsimple -> . term
+    (27) term -> . term opmult factor
+    (28) term -> . factor
+    (29) factor -> . INTEGER
+    (30) factor -> . ID
+    (31) factor -> . call_function
+    (32) factor -> . LPARENT expsimple RPARENT
+    (68) call_function -> . NFUNCTION
+    (69) call_function -> . NFUNCTION LPARENT arg RPARENT
+
+    LPARENT         shift and go to state 22
+    INTEGER         shift and go to state 21
+    ID              shift and go to state 20
+    NFUNCTION       shift and go to state 6
+
+    call_function                  shift and go to state 17
+    exp                            shift and go to state 18
+    term                           shift and go to state 19
+    expsimple                      shift and go to state 24
+    factor                         shift and go to state 23
+
+state 14
+
+    (69) call_function -> NFUNCTION LPARENT . arg RPARENT
+    (58) arg -> . var_declaration_gen
+    (59) arg -> . type
+    (60) arg -> . expsimple
+    (61) arg -> . type COMMA arg
+    (62) arg -> . STRING
+    (63) arg -> . STRINGG
+    (64) arg -> . var_declaration_gen COMMA arg
+    (65) arg -> . STRING COMMA arg
+    (66) arg -> . STRINGG COMMA arg
+    (67) arg -> .
+    (51) var_declaration_gen -> . ID
+    (52) var_declaration_gen -> . ID PLUS PLUS
+    (53) var_declaration_gen -> . ID MINUS MINUS
+    (54) var_declaration_gen -> . MINUS MINUS ID
+    (55) var_declaration_gen -> . PLUS PLUS ID
+    (56) var_declaration_gen -> . typevar
+    (57) var_declaration_gen -> . exp
+    (49) type -> . typevar
+    (50) type -> . var_declaration_gen
+    (25) expsimple -> . expsimple opsuma term
+    (26) expsimple -> . term
+    (33) typevar -> . INTEGER
+    (34) typevar -> . STRING
+    (35) typevar -> . STRINGG
+    (36) typevar -> . TRUE
+    (37) typevar -> . FALSE
+    (15) exp -> . expsimple opcomparacion expsimple
+    (16) exp -> . LPARENT expsimple opcomparacion expsimple RPARENT
+    (17) exp -> . expsimple
+    (27) term -> . term opmult factor
+    (28) term -> . factor
+    (29) factor -> . INTEGER
+    (30) factor -> . ID
+    (31) factor -> . call_function
+    (32) factor -> . LPARENT expsimple RPARENT
+    (68) call_function -> . NFUNCTION
+    (69) call_function -> . NFUNCTION LPARENT arg RPARENT
+
+    STRING          shift and go to state 29
+    STRINGG         shift and go to state 31
+    RPARENT         reduce using rule 67 (arg -> .)
+    ID              shift and go to state 32
+    MINUS           shift and go to state 30
+    PLUS            shift and go to state 26
+    INTEGER         shift and go to state 34
+    TRUE            shift and go to state 33
+    FALSE           shift and go to state 36
+    LPARENT         shift and go to state 22
+    NFUNCTION       shift and go to state 6
+
+    call_function                  shift and go to state 17
+    typevar                        shift and go to state 25
+    term                           shift and go to state 19
+    type                           shift and go to state 27
+    factor                         shift and go to state 23
+    exp                            shift and go to state 28
+    var_declaration_gen            shift and go to state 35
+    arg                            shift and go to state 37
+    expsimple                      shift and go to state 38
+
+state 15
+
+    (4) declaracion_sentencias -> sentencias declaracion_sentencias .
+
+    $end            reduce using rule 4 (declaracion_sentencias -> sentencias declaracion_sentencias .)
+
+
+state 16
+
+    (70) import -> INCLUDE STRINGG CIERRE .
+
+    ID              reduce using rule 70 (import -> INCLUDE STRINGG CIERRE .)
+    NFUNCTION       reduce using rule 70 (import -> INCLUDE STRINGG CIERRE .)
+    $end            reduce using rule 70 (import -> INCLUDE STRINGG CIERRE .)
+
+
+state 17
+
+    (31) factor -> call_function .
+
+    TIMES           reduce using rule 31 (factor -> call_function .)
+    DIV             reduce using rule 31 (factor -> call_function .)
+    MODULO          reduce using rule 31 (factor -> call_function .)
+    EXPONENCIACION  reduce using rule 31 (factor -> call_function .)
+    PLUS            reduce using rule 31 (factor -> call_function .)
+    MINUS           reduce using rule 31 (factor -> call_function .)
+    CIERRE          reduce using rule 31 (factor -> call_function .)
+    COMMA           reduce using rule 31 (factor -> call_function .)
+    RPARENT         reduce using rule 31 (factor -> call_function .)
+    IGUAL           reduce using rule 31 (factor -> call_function .)
+    NOIGUAL         reduce using rule 31 (factor -> call_function .)
+    IDENTICO        reduce using rule 31 (factor -> call_function .)
+    MAYOR           reduce using rule 31 (factor -> call_function .)
+    MAYORIG         reduce using rule 31 (factor -> call_function .)
+    MENOR           reduce using rule 31 (factor -> call_function .)
+    MENORIG         reduce using rule 31 (factor -> call_function .)
+
+
+state 18
+
+    (8) sentassign -> ID EQUAL exp . CIERRE
+
+    CIERRE          shift and go to state 39
+
+
+state 19
+
+    (26) expsimple -> term .
+    (27) term -> term . opmult factor
+    (40) opmult -> . TIMES
+    (41) opmult -> . DIV
+    (42) opmult -> . MODULO
+    (43) opmult -> . EXPONENCIACION
+
+    PLUS            reduce using rule 26 (expsimple -> term .)
+    MINUS           reduce using rule 26 (expsimple -> term .)
+    IGUAL           reduce using rule 26 (expsimple -> term .)
+    NOIGUAL         reduce using rule 26 (expsimple -> term .)
+    IDENTICO        reduce using rule 26 (expsimple -> term .)
+    MAYOR           reduce using rule 26 (expsimple -> term .)
+    MAYORIG         reduce using rule 26 (expsimple -> term .)
+    MENOR           reduce using rule 26 (expsimple -> term .)
+    MENORIG         reduce using rule 26 (expsimple -> term .)
+    RPARENT         reduce using rule 26 (expsimple -> term .)
+    COMMA           reduce using rule 26 (expsimple -> term .)
+    CIERRE          reduce using rule 26 (expsimple -> term .)
+    TIMES           shift and go to state 43
+    DIV             shift and go to state 41
+    MODULO          shift and go to state 42
+    EXPONENCIACION  shift and go to state 40
+
+    opmult                         shift and go to state 44
+
+state 20
+
+    (30) factor -> ID .
+
+    TIMES           reduce using rule 30 (factor -> ID .)
+    DIV             reduce using rule 30 (factor -> ID .)
+    MODULO          reduce using rule 30 (factor -> ID .)
+    EXPONENCIACION  reduce using rule 30 (factor -> ID .)
+    PLUS            reduce using rule 30 (factor -> ID .)
+    MINUS           reduce using rule 30 (factor -> ID .)
+    CIERRE          reduce using rule 30 (factor -> ID .)
+    COMMA           reduce using rule 30 (factor -> ID .)
+    RPARENT         reduce using rule 30 (factor -> ID .)
+    IGUAL           reduce using rule 30 (factor -> ID .)
+    NOIGUAL         reduce using rule 30 (factor -> ID .)
+    IDENTICO        reduce using rule 30 (factor -> ID .)
+    MAYOR           reduce using rule 30 (factor -> ID .)
+    MAYORIG         reduce using rule 30 (factor -> ID .)
+    MENOR           reduce using rule 30 (factor -> ID .)
+    MENORIG         reduce using rule 30 (factor -> ID .)
+
+
+state 21
+
+    (29) factor -> INTEGER .
+
+    TIMES           reduce using rule 29 (factor -> INTEGER .)
+    DIV             reduce using rule 29 (factor -> INTEGER .)
+    MODULO          reduce using rule 29 (factor -> INTEGER .)
+    EXPONENCIACION  reduce using rule 29 (factor -> INTEGER .)
+    PLUS            reduce using rule 29 (factor -> INTEGER .)
+    MINUS           reduce using rule 29 (factor -> INTEGER .)
+    CIERRE          reduce using rule 29 (factor -> INTEGER .)
+    COMMA           reduce using rule 29 (factor -> INTEGER .)
+    RPARENT         reduce using rule 29 (factor -> INTEGER .)
+    IGUAL           reduce using rule 29 (factor -> INTEGER .)
+    NOIGUAL         reduce using rule 29 (factor -> INTEGER .)
+    IDENTICO        reduce using rule 29 (factor -> INTEGER .)
+    MAYOR           reduce using rule 29 (factor -> INTEGER .)
+    MAYORIG         reduce using rule 29 (factor -> INTEGER .)
+    MENOR           reduce using rule 29 (factor -> INTEGER .)
+    MENORIG         reduce using rule 29 (factor -> INTEGER .)
+
+
+state 22
+
+    (16) exp -> LPARENT . expsimple opcomparacion expsimple RPARENT
+    (32) factor -> LPARENT . expsimple RPARENT
+    (25) expsimple -> . expsimple opsuma term
+    (26) expsimple -> . term
+    (27) term -> . term opmult factor
+    (28) term -> . factor
+    (29) factor -> . INTEGER
+    (30) factor -> . ID
+    (31) factor -> . call_function
+    (32) factor -> . LPARENT expsimple RPARENT
+    (68) call_function -> . NFUNCTION
+    (69) call_function -> . NFUNCTION LPARENT arg RPARENT
+
+    INTEGER         shift and go to state 21
+    ID              shift and go to state 20
+    LPARENT         shift and go to state 45
+    NFUNCTION       shift and go to state 6
+
+    call_function                  shift and go to state 17
+    term                           shift and go to state 19
+    expsimple                      shift and go to state 46
+    factor                         shift and go to state 23
+
+state 23
+
+    (28) term -> factor .
+
+    TIMES           reduce using rule 28 (term -> factor .)
+    DIV             reduce using rule 28 (term -> factor .)
+    MODULO          reduce using rule 28 (term -> factor .)
+    EXPONENCIACION  reduce using rule 28 (term -> factor .)
+    PLUS            reduce using rule 28 (term -> factor .)
+    MINUS           reduce using rule 28 (term -> factor .)
+    IGUAL           reduce using rule 28 (term -> factor .)
+    NOIGUAL         reduce using rule 28 (term -> factor .)
+    IDENTICO        reduce using rule 28 (term -> factor .)
+    MAYOR           reduce using rule 28 (term -> factor .)
+    MAYORIG         reduce using rule 28 (term -> factor .)
+    MENOR           reduce using rule 28 (term -> factor .)
+    MENORIG         reduce using rule 28 (term -> factor .)
+    RPARENT         reduce using rule 28 (term -> factor .)
+    COMMA           reduce using rule 28 (term -> factor .)
+    CIERRE          reduce using rule 28 (term -> factor .)
+
+
+state 24
+
+    (15) exp -> expsimple . opcomparacion expsimple
+    (17) exp -> expsimple .
+    (25) expsimple -> expsimple . opsuma term
+    (18) opcomparacion -> . IGUAL
+    (19) opcomparacion -> . NOIGUAL
+    (20) opcomparacion -> . IDENTICO
+    (21) opcomparacion -> . MAYOR
+    (22) opcomparacion -> . MAYORIG
+    (23) opcomparacion -> . MENOR
+    (24) opcomparacion -> . MENORIG
+    (38) opsuma -> . PLUS
+    (39) opsuma -> . MINUS
+
+    CIERRE          reduce using rule 17 (exp -> expsimple .)
+    IGUAL           shift and go to state 48
+    NOIGUAL         shift and go to state 47
+    IDENTICO        shift and go to state 55
+    MAYOR           shift and go to state 53
+    MAYORIG         shift and go to state 49
+    MENOR           shift and go to state 54
+    MENORIG         shift and go to state 52
+    PLUS            shift and go to state 50
+    MINUS           shift and go to state 51
+
+    opcomparacion                  shift and go to state 56
+    opsuma                         shift and go to state 57
+
+state 25
+
+    (56) var_declaration_gen -> typevar .
+    (49) type -> typevar .
+
+  ! reduce/reduce conflict for COMMA resolved using rule 49 (type -> typevar .)
+  ! reduce/reduce conflict for RPARENT resolved using rule 49 (type -> typevar .)
+    COMMA           reduce using rule 49 (type -> typevar .)
+    RPARENT         reduce using rule 49 (type -> typevar .)
+
+  ! COMMA           [ reduce using rule 56 (var_declaration_gen -> typevar .) ]
+  ! RPARENT         [ reduce using rule 56 (var_declaration_gen -> typevar .) ]
+
+
+state 26
+
+    (55) var_declaration_gen -> PLUS . PLUS ID
+
+    PLUS            shift and go to state 58
+
+
+state 27
+
+    (59) arg -> type .
+    (61) arg -> type . COMMA arg
+
+    RPARENT         reduce using rule 59 (arg -> type .)
+    COMMA           shift and go to state 59
+
+
+state 28
+
+    (57) var_declaration_gen -> exp .
+
+    COMMA           reduce using rule 57 (var_declaration_gen -> exp .)
+    RPARENT         reduce using rule 57 (var_declaration_gen -> exp .)
+
+
+state 29
+
+    (62) arg -> STRING .
+    (65) arg -> STRING . COMMA arg
+    (34) typevar -> STRING .
+
+  ! shift/reduce conflict for COMMA resolved as shift
+  ! reduce/reduce conflict for RPARENT resolved using rule 34 (typevar -> STRING .)
+    COMMA           shift and go to state 60
+    RPARENT         reduce using rule 34 (typevar -> STRING .)
+
+  ! RPARENT         [ reduce using rule 62 (arg -> STRING .) ]
+  ! COMMA           [ reduce using rule 34 (typevar -> STRING .) ]
+
+
+state 30
+
+    (54) var_declaration_gen -> MINUS . MINUS ID
+
+    MINUS           shift and go to state 61
+
+
+state 31
+
+    (63) arg -> STRINGG .
+    (66) arg -> STRINGG . COMMA arg
+    (35) typevar -> STRINGG .
+
+  ! shift/reduce conflict for COMMA resolved as shift
+  ! reduce/reduce conflict for RPARENT resolved using rule 35 (typevar -> STRINGG .)
+    COMMA           shift and go to state 62
+    RPARENT         reduce using rule 35 (typevar -> STRINGG .)
+
+  ! RPARENT         [ reduce using rule 63 (arg -> STRINGG .) ]
+  ! COMMA           [ reduce using rule 35 (typevar -> STRINGG .) ]
+
+
+state 32
+
+    (51) var_declaration_gen -> ID .
+    (52) var_declaration_gen -> ID . PLUS PLUS
+    (53) var_declaration_gen -> ID . MINUS MINUS
+    (30) factor -> ID .
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! reduce/reduce conflict for RPARENT resolved using rule 30 (factor -> ID .)
+  ! reduce/reduce conflict for COMMA resolved using rule 30 (factor -> ID .)
+    PLUS            shift and go to state 63
+    MINUS           shift and go to state 64
+    TIMES           reduce using rule 30 (factor -> ID .)
+    DIV             reduce using rule 30 (factor -> ID .)
+    MODULO          reduce using rule 30 (factor -> ID .)
+    EXPONENCIACION  reduce using rule 30 (factor -> ID .)
+    IGUAL           reduce using rule 30 (factor -> ID .)
+    NOIGUAL         reduce using rule 30 (factor -> ID .)
+    IDENTICO        reduce using rule 30 (factor -> ID .)
+    MAYOR           reduce using rule 30 (factor -> ID .)
+    MAYORIG         reduce using rule 30 (factor -> ID .)
+    MENOR           reduce using rule 30 (factor -> ID .)
+    MENORIG         reduce using rule 30 (factor -> ID .)
+    RPARENT         reduce using rule 30 (factor -> ID .)
+    COMMA           reduce using rule 30 (factor -> ID .)
+
+  ! COMMA           [ reduce using rule 51 (var_declaration_gen -> ID .) ]
+  ! RPARENT         [ reduce using rule 51 (var_declaration_gen -> ID .) ]
+  ! PLUS            [ reduce using rule 30 (factor -> ID .) ]
+  ! MINUS           [ reduce using rule 30 (factor -> ID .) ]
+
+
+state 33
+
+    (36) typevar -> TRUE .
+
+    COMMA           reduce using rule 36 (typevar -> TRUE .)
+    RPARENT         reduce using rule 36 (typevar -> TRUE .)
+
+
+state 34
+
+    (33) typevar -> INTEGER .
+    (29) factor -> INTEGER .
+
+  ! reduce/reduce conflict for RPARENT resolved using rule 29 (factor -> INTEGER .)
+  ! reduce/reduce conflict for COMMA resolved using rule 29 (factor -> INTEGER .)
+    TIMES           reduce using rule 29 (factor -> INTEGER .)
+    DIV             reduce using rule 29 (factor -> INTEGER .)
+    MODULO          reduce using rule 29 (factor -> INTEGER .)
+    EXPONENCIACION  reduce using rule 29 (factor -> INTEGER .)
+    PLUS            reduce using rule 29 (factor -> INTEGER .)
+    MINUS           reduce using rule 29 (factor -> INTEGER .)
+    IGUAL           reduce using rule 29 (factor -> INTEGER .)
+    NOIGUAL         reduce using rule 29 (factor -> INTEGER .)
+    IDENTICO        reduce using rule 29 (factor -> INTEGER .)
+    MAYOR           reduce using rule 29 (factor -> INTEGER .)
+    MAYORIG         reduce using rule 29 (factor -> INTEGER .)
+    MENOR           reduce using rule 29 (factor -> INTEGER .)
+    MENORIG         reduce using rule 29 (factor -> INTEGER .)
+    RPARENT         reduce using rule 29 (factor -> INTEGER .)
+    COMMA           reduce using rule 29 (factor -> INTEGER .)
+
+  ! COMMA           [ reduce using rule 33 (typevar -> INTEGER .) ]
+  ! RPARENT         [ reduce using rule 33 (typevar -> INTEGER .) ]
+
+
+state 35
+
+    (58) arg -> var_declaration_gen .
+    (64) arg -> var_declaration_gen . COMMA arg
+    (50) type -> var_declaration_gen .
+
+  ! shift/reduce conflict for COMMA resolved as shift
+  ! reduce/reduce conflict for RPARENT resolved using rule 50 (type -> var_declaration_gen .)
+    COMMA           shift and go to state 65
+    RPARENT         reduce using rule 50 (type -> var_declaration_gen .)
+
+  ! RPARENT         [ reduce using rule 58 (arg -> var_declaration_gen .) ]
+  ! COMMA           [ reduce using rule 50 (type -> var_declaration_gen .) ]
+
+
+state 36
+
+    (37) typevar -> FALSE .
+
+    COMMA           reduce using rule 37 (typevar -> FALSE .)
+    RPARENT         reduce using rule 37 (typevar -> FALSE .)
+
+
+state 37
+
+    (69) call_function -> NFUNCTION LPARENT arg . RPARENT
+
+    RPARENT         shift and go to state 66
+
+
+state 38
+
+    (60) arg -> expsimple .
+    (25) expsimple -> expsimple . opsuma term
+    (15) exp -> expsimple . opcomparacion expsimple
+    (17) exp -> expsimple .
+    (38) opsuma -> . PLUS
+    (39) opsuma -> . MINUS
+    (18) opcomparacion -> . IGUAL
+    (19) opcomparacion -> . NOIGUAL
+    (20) opcomparacion -> . IDENTICO
+    (21) opcomparacion -> . MAYOR
+    (22) opcomparacion -> . MAYORIG
+    (23) opcomparacion -> . MENOR
+    (24) opcomparacion -> . MENORIG
+
+  ! reduce/reduce conflict for RPARENT resolved using rule 17 (exp -> expsimple .)
+    COMMA           reduce using rule 17 (exp -> expsimple .)
+    RPARENT         reduce using rule 17 (exp -> expsimple .)
+    PLUS            shift and go to state 50
+    MINUS           shift and go to state 51
+    IGUAL           shift and go to state 48
+    NOIGUAL         shift and go to state 47
+    IDENTICO        shift and go to state 55
+    MAYOR           shift and go to state 53
+    MAYORIG         shift and go to state 49
+    MENOR           shift and go to state 54
+    MENORIG         shift and go to state 52
+
+  ! RPARENT         [ reduce using rule 60 (arg -> expsimple .) ]
+
+    opcomparacion                  shift and go to state 56
+    opsuma                         shift and go to state 57
+
+state 39
+
+    (8) sentassign -> ID EQUAL exp CIERRE .
+
+    ID              reduce using rule 8 (sentassign -> ID EQUAL exp CIERRE .)
+    NFUNCTION       reduce using rule 8 (sentassign -> ID EQUAL exp CIERRE .)
+    $end            reduce using rule 8 (sentassign -> ID EQUAL exp CIERRE .)
+
+
+state 40
+
+    (43) opmult -> EXPONENCIACION .
+
+    INTEGER         reduce using rule 43 (opmult -> EXPONENCIACION .)
+    ID              reduce using rule 43 (opmult -> EXPONENCIACION .)
+    LPARENT         reduce using rule 43 (opmult -> EXPONENCIACION .)
+    NFUNCTION       reduce using rule 43 (opmult -> EXPONENCIACION .)
+
+
+state 41
+
+    (41) opmult -> DIV .
+
+    INTEGER         reduce using rule 41 (opmult -> DIV .)
+    ID              reduce using rule 41 (opmult -> DIV .)
+    LPARENT         reduce using rule 41 (opmult -> DIV .)
+    NFUNCTION       reduce using rule 41 (opmult -> DIV .)
+
+
+state 42
+
+    (42) opmult -> MODULO .
+
+    INTEGER         reduce using rule 42 (opmult -> MODULO .)
+    ID              reduce using rule 42 (opmult -> MODULO .)
+    LPARENT         reduce using rule 42 (opmult -> MODULO .)
+    NFUNCTION       reduce using rule 42 (opmult -> MODULO .)
+
+
+state 43
+
+    (40) opmult -> TIMES .
+
+    INTEGER         reduce using rule 40 (opmult -> TIMES .)
+    ID              reduce using rule 40 (opmult -> TIMES .)
+    LPARENT         reduce using rule 40 (opmult -> TIMES .)
+    NFUNCTION       reduce using rule 40 (opmult -> TIMES .)
+
+
+state 44
+
+    (27) term -> term opmult . factor
+    (29) factor -> . INTEGER
+    (30) factor -> . ID
+    (31) factor -> . call_function
+    (32) factor -> . LPARENT expsimple RPARENT
+    (68) call_function -> . NFUNCTION
+    (69) call_function -> . NFUNCTION LPARENT arg RPARENT
+
+    INTEGER         shift and go to state 21
+    ID              shift and go to state 20
+    LPARENT         shift and go to state 45
+    NFUNCTION       shift and go to state 6
+
+    call_function                  shift and go to state 17
+    factor                         shift and go to state 67
+
+state 45
+
+    (32) factor -> LPARENT . expsimple RPARENT
+    (25) expsimple -> . expsimple opsuma term
+    (26) expsimple -> . term
+    (27) term -> . term opmult factor
+    (28) term -> . factor
+    (29) factor -> . INTEGER
+    (30) factor -> . ID
+    (31) factor -> . call_function
+    (32) factor -> . LPARENT expsimple RPARENT
+    (68) call_function -> . NFUNCTION
+    (69) call_function -> . NFUNCTION LPARENT arg RPARENT
+
+    INTEGER         shift and go to state 21
+    ID              shift and go to state 20
+    LPARENT         shift and go to state 45
+    NFUNCTION       shift and go to state 6
+
+    call_function                  shift and go to state 17
+    term                           shift and go to state 19
+    expsimple                      shift and go to state 68
+    factor                         shift and go to state 23
+
+state 46
+
+    (16) exp -> LPARENT expsimple . opcomparacion expsimple RPARENT
+    (32) factor -> LPARENT expsimple . RPARENT
+    (25) expsimple -> expsimple . opsuma term
+    (18) opcomparacion -> . IGUAL
+    (19) opcomparacion -> . NOIGUAL
+    (20) opcomparacion -> . IDENTICO
+    (21) opcomparacion -> . MAYOR
+    (22) opcomparacion -> . MAYORIG
+    (23) opcomparacion -> . MENOR
+    (24) opcomparacion -> . MENORIG
+    (38) opsuma -> . PLUS
+    (39) opsuma -> . MINUS
+
+    RPARENT         shift and go to state 69
+    IGUAL           shift and go to state 48
+    NOIGUAL         shift and go to state 47
+    IDENTICO        shift and go to state 55
+    MAYOR           shift and go to state 53
+    MAYORIG         shift and go to state 49
+    MENOR           shift and go to state 54
+    MENORIG         shift and go to state 52
+    PLUS            shift and go to state 50
+    MINUS           shift and go to state 51
+
+    opcomparacion                  shift and go to state 70
+    opsuma                         shift and go to state 57
+
+state 47
+
+    (19) opcomparacion -> NOIGUAL .
+
+    INTEGER         reduce using rule 19 (opcomparacion -> NOIGUAL .)
+    ID              reduce using rule 19 (opcomparacion -> NOIGUAL .)
+    LPARENT         reduce using rule 19 (opcomparacion -> NOIGUAL .)
+    NFUNCTION       reduce using rule 19 (opcomparacion -> NOIGUAL .)
+
+
+state 48
+
+    (18) opcomparacion -> IGUAL .
+
+    INTEGER         reduce using rule 18 (opcomparacion -> IGUAL .)
+    ID              reduce using rule 18 (opcomparacion -> IGUAL .)
+    LPARENT         reduce using rule 18 (opcomparacion -> IGUAL .)
+    NFUNCTION       reduce using rule 18 (opcomparacion -> IGUAL .)
+
+
+state 49
+
+    (22) opcomparacion -> MAYORIG .
+
+    INTEGER         reduce using rule 22 (opcomparacion -> MAYORIG .)
+    ID              reduce using rule 22 (opcomparacion -> MAYORIG .)
+    LPARENT         reduce using rule 22 (opcomparacion -> MAYORIG .)
+    NFUNCTION       reduce using rule 22 (opcomparacion -> MAYORIG .)
+
+
+state 50
+
+    (38) opsuma -> PLUS .
+
+    INTEGER         reduce using rule 38 (opsuma -> PLUS .)
+    ID              reduce using rule 38 (opsuma -> PLUS .)
+    LPARENT         reduce using rule 38 (opsuma -> PLUS .)
+    NFUNCTION       reduce using rule 38 (opsuma -> PLUS .)
+
+
+state 51
+
+    (39) opsuma -> MINUS .
+
+    INTEGER         reduce using rule 39 (opsuma -> MINUS .)
+    ID              reduce using rule 39 (opsuma -> MINUS .)
+    LPARENT         reduce using rule 39 (opsuma -> MINUS .)
+    NFUNCTION       reduce using rule 39 (opsuma -> MINUS .)
+
+
+state 52
+
+    (24) opcomparacion -> MENORIG .
+
+    INTEGER         reduce using rule 24 (opcomparacion -> MENORIG .)
+    ID              reduce using rule 24 (opcomparacion -> MENORIG .)
+    LPARENT         reduce using rule 24 (opcomparacion -> MENORIG .)
+    NFUNCTION       reduce using rule 24 (opcomparacion -> MENORIG .)
+
+
+state 53
+
+    (21) opcomparacion -> MAYOR .
+
+    INTEGER         reduce using rule 21 (opcomparacion -> MAYOR .)
+    ID              reduce using rule 21 (opcomparacion -> MAYOR .)
+    LPARENT         reduce using rule 21 (opcomparacion -> MAYOR .)
+    NFUNCTION       reduce using rule 21 (opcomparacion -> MAYOR .)
+
+
+state 54
+
+    (23) opcomparacion -> MENOR .
+
+    INTEGER         reduce using rule 23 (opcomparacion -> MENOR .)
+    ID              reduce using rule 23 (opcomparacion -> MENOR .)
+    LPARENT         reduce using rule 23 (opcomparacion -> MENOR .)
+    NFUNCTION       reduce using rule 23 (opcomparacion -> MENOR .)
+
+
+state 55
+
+    (20) opcomparacion -> IDENTICO .
+
+    INTEGER         reduce using rule 20 (opcomparacion -> IDENTICO .)
+    ID              reduce using rule 20 (opcomparacion -> IDENTICO .)
+    LPARENT         reduce using rule 20 (opcomparacion -> IDENTICO .)
+    NFUNCTION       reduce using rule 20 (opcomparacion -> IDENTICO .)
+
+
+state 56
+
+    (15) exp -> expsimple opcomparacion . expsimple
+    (25) expsimple -> . expsimple opsuma term
+    (26) expsimple -> . term
+    (27) term -> . term opmult factor
+    (28) term -> . factor
+    (29) factor -> . INTEGER
+    (30) factor -> . ID
+    (31) factor -> . call_function
+    (32) factor -> . LPARENT expsimple RPARENT
+    (68) call_function -> . NFUNCTION
+    (69) call_function -> . NFUNCTION LPARENT arg RPARENT
+
+    INTEGER         shift and go to state 21
+    ID              shift and go to state 20
+    LPARENT         shift and go to state 45
+    NFUNCTION       shift and go to state 6
+
+    call_function                  shift and go to state 17
+    term                           shift and go to state 19
+    expsimple                      shift and go to state 71
+    factor                         shift and go to state 23
+
+state 57
+
+    (25) expsimple -> expsimple opsuma . term
+    (27) term -> . term opmult factor
+    (28) term -> . factor
+    (29) factor -> . INTEGER
+    (30) factor -> . ID
+    (31) factor -> . call_function
+    (32) factor -> . LPARENT expsimple RPARENT
+    (68) call_function -> . NFUNCTION
+    (69) call_function -> . NFUNCTION LPARENT arg RPARENT
+
+    INTEGER         shift and go to state 21
+    ID              shift and go to state 20
+    LPARENT         shift and go to state 45
+    NFUNCTION       shift and go to state 6
+
+    call_function                  shift and go to state 17
+    term                           shift and go to state 72
+    factor                         shift and go to state 23
+
+state 58
+
+    (55) var_declaration_gen -> PLUS PLUS . ID
+
+    ID              shift and go to state 73
+
+
+state 59
+
+    (61) arg -> type COMMA . arg
+    (58) arg -> . var_declaration_gen
+    (59) arg -> . type
+    (60) arg -> . expsimple
+    (61) arg -> . type COMMA arg
+    (62) arg -> . STRING
+    (63) arg -> . STRINGG
+    (64) arg -> . var_declaration_gen COMMA arg
+    (65) arg -> . STRING COMMA arg
+    (66) arg -> . STRINGG COMMA arg
+    (67) arg -> .
+    (51) var_declaration_gen -> . ID
+    (52) var_declaration_gen -> . ID PLUS PLUS
+    (53) var_declaration_gen -> . ID MINUS MINUS
+    (54) var_declaration_gen -> . MINUS MINUS ID
+    (55) var_declaration_gen -> . PLUS PLUS ID
+    (56) var_declaration_gen -> . typevar
+    (57) var_declaration_gen -> . exp
+    (49) type -> . typevar
+    (50) type -> . var_declaration_gen
+    (25) expsimple -> . expsimple opsuma term
+    (26) expsimple -> . term
+    (33) typevar -> . INTEGER
+    (34) typevar -> . STRING
+    (35) typevar -> . STRINGG
+    (36) typevar -> . TRUE
+    (37) typevar -> . FALSE
+    (15) exp -> . expsimple opcomparacion expsimple
+    (16) exp -> . LPARENT expsimple opcomparacion expsimple RPARENT
+    (17) exp -> . expsimple
+    (27) term -> . term opmult factor
+    (28) term -> . factor
+    (29) factor -> . INTEGER
+    (30) factor -> . ID
+    (31) factor -> . call_function
+    (32) factor -> . LPARENT expsimple RPARENT
+    (68) call_function -> . NFUNCTION
+    (69) call_function -> . NFUNCTION LPARENT arg RPARENT
+
+    STRING          shift and go to state 29
+    STRINGG         shift and go to state 31
+    RPARENT         reduce using rule 67 (arg -> .)
+    ID              shift and go to state 32
+    MINUS           shift and go to state 30
+    PLUS            shift and go to state 26
+    INTEGER         shift and go to state 34
+    TRUE            shift and go to state 33
+    FALSE           shift and go to state 36
+    LPARENT         shift and go to state 22
+    NFUNCTION       shift and go to state 6
+
+    call_function                  shift and go to state 17
+    typevar                        shift and go to state 25
+    term                           shift and go to state 19
+    type                           shift and go to state 27
+    factor                         shift and go to state 23
+    exp                            shift and go to state 28
+    var_declaration_gen            shift and go to state 35
+    arg                            shift and go to state 74
+    expsimple                      shift and go to state 38
+
+state 60
+
+    (65) arg -> STRING COMMA . arg
+    (58) arg -> . var_declaration_gen
+    (59) arg -> . type
+    (60) arg -> . expsimple
+    (61) arg -> . type COMMA arg
+    (62) arg -> . STRING
+    (63) arg -> . STRINGG
+    (64) arg -> . var_declaration_gen COMMA arg
+    (65) arg -> . STRING COMMA arg
+    (66) arg -> . STRINGG COMMA arg
+    (67) arg -> .
+    (51) var_declaration_gen -> . ID
+    (52) var_declaration_gen -> . ID PLUS PLUS
+    (53) var_declaration_gen -> . ID MINUS MINUS
+    (54) var_declaration_gen -> . MINUS MINUS ID
+    (55) var_declaration_gen -> . PLUS PLUS ID
+    (56) var_declaration_gen -> . typevar
+    (57) var_declaration_gen -> . exp
+    (49) type -> . typevar
+    (50) type -> . var_declaration_gen
+    (25) expsimple -> . expsimple opsuma term
+    (26) expsimple -> . term
+    (33) typevar -> . INTEGER
+    (34) typevar -> . STRING
+    (35) typevar -> . STRINGG
+    (36) typevar -> . TRUE
+    (37) typevar -> . FALSE
+    (15) exp -> . expsimple opcomparacion expsimple
+    (16) exp -> . LPARENT expsimple opcomparacion expsimple RPARENT
+    (17) exp -> . expsimple
+    (27) term -> . term opmult factor
+    (28) term -> . factor
+    (29) factor -> . INTEGER
+    (30) factor -> . ID
+    (31) factor -> . call_function
+    (32) factor -> . LPARENT expsimple RPARENT
+    (68) call_function -> . NFUNCTION
+    (69) call_function -> . NFUNCTION LPARENT arg RPARENT
+
+    STRING          shift and go to state 29
+    STRINGG         shift and go to state 31
+    RPARENT         reduce using rule 67 (arg -> .)
+    ID              shift and go to state 32
+    MINUS           shift and go to state 30
+    PLUS            shift and go to state 26
+    INTEGER         shift and go to state 34
+    TRUE            shift and go to state 33
+    FALSE           shift and go to state 36
+    LPARENT         shift and go to state 22
+    NFUNCTION       shift and go to state 6
+
+    call_function                  shift and go to state 17
+    typevar                        shift and go to state 25
+    term                           shift and go to state 19
+    type                           shift and go to state 27
+    factor                         shift and go to state 23
+    exp                            shift and go to state 28
+    var_declaration_gen            shift and go to state 35
+    arg                            shift and go to state 75
+    expsimple                      shift and go to state 38
+
+state 61
+
+    (54) var_declaration_gen -> MINUS MINUS . ID
+
+    ID              shift and go to state 76
+
+
+state 62
+
+    (66) arg -> STRINGG COMMA . arg
+    (58) arg -> . var_declaration_gen
+    (59) arg -> . type
+    (60) arg -> . expsimple
+    (61) arg -> . type COMMA arg
+    (62) arg -> . STRING
+    (63) arg -> . STRINGG
+    (64) arg -> . var_declaration_gen COMMA arg
+    (65) arg -> . STRING COMMA arg
+    (66) arg -> . STRINGG COMMA arg
+    (67) arg -> .
+    (51) var_declaration_gen -> . ID
+    (52) var_declaration_gen -> . ID PLUS PLUS
+    (53) var_declaration_gen -> . ID MINUS MINUS
+    (54) var_declaration_gen -> . MINUS MINUS ID
+    (55) var_declaration_gen -> . PLUS PLUS ID
+    (56) var_declaration_gen -> . typevar
+    (57) var_declaration_gen -> . exp
+    (49) type -> . typevar
+    (50) type -> . var_declaration_gen
+    (25) expsimple -> . expsimple opsuma term
+    (26) expsimple -> . term
+    (33) typevar -> . INTEGER
+    (34) typevar -> . STRING
+    (35) typevar -> . STRINGG
+    (36) typevar -> . TRUE
+    (37) typevar -> . FALSE
+    (15) exp -> . expsimple opcomparacion expsimple
+    (16) exp -> . LPARENT expsimple opcomparacion expsimple RPARENT
+    (17) exp -> . expsimple
+    (27) term -> . term opmult factor
+    (28) term -> . factor
+    (29) factor -> . INTEGER
+    (30) factor -> . ID
+    (31) factor -> . call_function
+    (32) factor -> . LPARENT expsimple RPARENT
+    (68) call_function -> . NFUNCTION
+    (69) call_function -> . NFUNCTION LPARENT arg RPARENT
+
+    STRING          shift and go to state 29
+    STRINGG         shift and go to state 31
+    RPARENT         reduce using rule 67 (arg -> .)
+    ID              shift and go to state 32
+    MINUS           shift and go to state 30
+    PLUS            shift and go to state 26
+    INTEGER         shift and go to state 34
+    TRUE            shift and go to state 33
+    FALSE           shift and go to state 36
+    LPARENT         shift and go to state 22
+    NFUNCTION       shift and go to state 6
+
+    call_function                  shift and go to state 17
+    typevar                        shift and go to state 25
+    term                           shift and go to state 19
+    type                           shift and go to state 27
+    factor                         shift and go to state 23
+    exp                            shift and go to state 28
+    var_declaration_gen            shift and go to state 35
+    arg                            shift and go to state 77
+    expsimple                      shift and go to state 38
+
+state 63
+
+    (52) var_declaration_gen -> ID PLUS . PLUS
+
+    PLUS            shift and go to state 78
+
+
+state 64
+
+    (53) var_declaration_gen -> ID MINUS . MINUS
+
+    MINUS           shift and go to state 79
+
+
+state 65
+
+    (64) arg -> var_declaration_gen COMMA . arg
+    (58) arg -> . var_declaration_gen
+    (59) arg -> . type
+    (60) arg -> . expsimple
+    (61) arg -> . type COMMA arg
+    (62) arg -> . STRING
+    (63) arg -> . STRINGG
+    (64) arg -> . var_declaration_gen COMMA arg
+    (65) arg -> . STRING COMMA arg
+    (66) arg -> . STRINGG COMMA arg
+    (67) arg -> .
+    (51) var_declaration_gen -> . ID
+    (52) var_declaration_gen -> . ID PLUS PLUS
+    (53) var_declaration_gen -> . ID MINUS MINUS
+    (54) var_declaration_gen -> . MINUS MINUS ID
+    (55) var_declaration_gen -> . PLUS PLUS ID
+    (56) var_declaration_gen -> . typevar
+    (57) var_declaration_gen -> . exp
+    (49) type -> . typevar
+    (50) type -> . var_declaration_gen
+    (25) expsimple -> . expsimple opsuma term
+    (26) expsimple -> . term
+    (33) typevar -> . INTEGER
+    (34) typevar -> . STRING
+    (35) typevar -> . STRINGG
+    (36) typevar -> . TRUE
+    (37) typevar -> . FALSE
+    (15) exp -> . expsimple opcomparacion expsimple
+    (16) exp -> . LPARENT expsimple opcomparacion expsimple RPARENT
+    (17) exp -> . expsimple
+    (27) term -> . term opmult factor
+    (28) term -> . factor
+    (29) factor -> . INTEGER
+    (30) factor -> . ID
+    (31) factor -> . call_function
+    (32) factor -> . LPARENT expsimple RPARENT
+    (68) call_function -> . NFUNCTION
+    (69) call_function -> . NFUNCTION LPARENT arg RPARENT
+
+    STRING          shift and go to state 29
+    STRINGG         shift and go to state 31
+    RPARENT         reduce using rule 67 (arg -> .)
+    ID              shift and go to state 32
+    MINUS           shift and go to state 30
+    PLUS            shift and go to state 26
+    INTEGER         shift and go to state 34
+    TRUE            shift and go to state 33
+    FALSE           shift and go to state 36
+    LPARENT         shift and go to state 22
+    NFUNCTION       shift and go to state 6
+
+    call_function                  shift and go to state 17
+    typevar                        shift and go to state 25
+    term                           shift and go to state 19
+    type                           shift and go to state 27
+    factor                         shift and go to state 23
+    exp                            shift and go to state 28
+    var_declaration_gen            shift and go to state 35
+    arg                            shift and go to state 80
+    expsimple                      shift and go to state 38
+
+state 66
+
+    (69) call_function -> NFUNCTION LPARENT arg RPARENT .
+
+    CIERRE          reduce using rule 69 (call_function -> NFUNCTION LPARENT arg RPARENT .)
+    TIMES           reduce using rule 69 (call_function -> NFUNCTION LPARENT arg RPARENT .)
+    DIV             reduce using rule 69 (call_function -> NFUNCTION LPARENT arg RPARENT .)
+    MODULO          reduce using rule 69 (call_function -> NFUNCTION LPARENT arg RPARENT .)
+    EXPONENCIACION  reduce using rule 69 (call_function -> NFUNCTION LPARENT arg RPARENT .)
+    RPARENT         reduce using rule 69 (call_function -> NFUNCTION LPARENT arg RPARENT .)
+    PLUS            reduce using rule 69 (call_function -> NFUNCTION LPARENT arg RPARENT .)
+    MINUS           reduce using rule 69 (call_function -> NFUNCTION LPARENT arg RPARENT .)
+    COMMA           reduce using rule 69 (call_function -> NFUNCTION LPARENT arg RPARENT .)
+    IGUAL           reduce using rule 69 (call_function -> NFUNCTION LPARENT arg RPARENT .)
+    NOIGUAL         reduce using rule 69 (call_function -> NFUNCTION LPARENT arg RPARENT .)
+    IDENTICO        reduce using rule 69 (call_function -> NFUNCTION LPARENT arg RPARENT .)
+    MAYOR           reduce using rule 69 (call_function -> NFUNCTION LPARENT arg RPARENT .)
+    MAYORIG         reduce using rule 69 (call_function -> NFUNCTION LPARENT arg RPARENT .)
+    MENOR           reduce using rule 69 (call_function -> NFUNCTION LPARENT arg RPARENT .)
+    MENORIG         reduce using rule 69 (call_function -> NFUNCTION LPARENT arg RPARENT .)
+
+
+state 67
+
+    (27) term -> term opmult factor .
+
+    TIMES           reduce using rule 27 (term -> term opmult factor .)
+    DIV             reduce using rule 27 (term -> term opmult factor .)
+    MODULO          reduce using rule 27 (term -> term opmult factor .)
+    EXPONENCIACION  reduce using rule 27 (term -> term opmult factor .)
+    PLUS            reduce using rule 27 (term -> term opmult factor .)
+    MINUS           reduce using rule 27 (term -> term opmult factor .)
+    IGUAL           reduce using rule 27 (term -> term opmult factor .)
+    NOIGUAL         reduce using rule 27 (term -> term opmult factor .)
+    IDENTICO        reduce using rule 27 (term -> term opmult factor .)
+    MAYOR           reduce using rule 27 (term -> term opmult factor .)
+    MAYORIG         reduce using rule 27 (term -> term opmult factor .)
+    MENOR           reduce using rule 27 (term -> term opmult factor .)
+    MENORIG         reduce using rule 27 (term -> term opmult factor .)
+    RPARENT         reduce using rule 27 (term -> term opmult factor .)
+    COMMA           reduce using rule 27 (term -> term opmult factor .)
+    CIERRE          reduce using rule 27 (term -> term opmult factor .)
+
+
+state 68
+
+    (32) factor -> LPARENT expsimple . RPARENT
+    (25) expsimple -> expsimple . opsuma term
+    (38) opsuma -> . PLUS
+    (39) opsuma -> . MINUS
+
+    RPARENT         shift and go to state 69
+    PLUS            shift and go to state 50
+    MINUS           shift and go to state 51
+
+    opsuma                         shift and go to state 57
+
+state 69
+
+    (32) factor -> LPARENT expsimple RPARENT .
+
+    TIMES           reduce using rule 32 (factor -> LPARENT expsimple RPARENT .)
+    DIV             reduce using rule 32 (factor -> LPARENT expsimple RPARENT .)
+    MODULO          reduce using rule 32 (factor -> LPARENT expsimple RPARENT .)
+    EXPONENCIACION  reduce using rule 32 (factor -> LPARENT expsimple RPARENT .)
+    PLUS            reduce using rule 32 (factor -> LPARENT expsimple RPARENT .)
+    MINUS           reduce using rule 32 (factor -> LPARENT expsimple RPARENT .)
+    CIERRE          reduce using rule 32 (factor -> LPARENT expsimple RPARENT .)
+    COMMA           reduce using rule 32 (factor -> LPARENT expsimple RPARENT .)
+    RPARENT         reduce using rule 32 (factor -> LPARENT expsimple RPARENT .)
+    IGUAL           reduce using rule 32 (factor -> LPARENT expsimple RPARENT .)
+    NOIGUAL         reduce using rule 32 (factor -> LPARENT expsimple RPARENT .)
+    IDENTICO        reduce using rule 32 (factor -> LPARENT expsimple RPARENT .)
+    MAYOR           reduce using rule 32 (factor -> LPARENT expsimple RPARENT .)
+    MAYORIG         reduce using rule 32 (factor -> LPARENT expsimple RPARENT .)
+    MENOR           reduce using rule 32 (factor -> LPARENT expsimple RPARENT .)
+    MENORIG         reduce using rule 32 (factor -> LPARENT expsimple RPARENT .)
+
+
+state 70
+
+    (16) exp -> LPARENT expsimple opcomparacion . expsimple RPARENT
+    (25) expsimple -> . expsimple opsuma term
+    (26) expsimple -> . term
+    (27) term -> . term opmult factor
+    (28) term -> . factor
+    (29) factor -> . INTEGER
+    (30) factor -> . ID
+    (31) factor -> . call_function
+    (32) factor -> . LPARENT expsimple RPARENT
+    (68) call_function -> . NFUNCTION
+    (69) call_function -> . NFUNCTION LPARENT arg RPARENT
+
+    INTEGER         shift and go to state 21
+    ID              shift and go to state 20
+    LPARENT         shift and go to state 45
+    NFUNCTION       shift and go to state 6
+
+    call_function                  shift and go to state 17
+    term                           shift and go to state 19
+    expsimple                      shift and go to state 81
+    factor                         shift and go to state 23
+
+state 71
+
+    (15) exp -> expsimple opcomparacion expsimple .
+    (25) expsimple -> expsimple . opsuma term
+    (38) opsuma -> . PLUS
+    (39) opsuma -> . MINUS
+
+    COMMA           reduce using rule 15 (exp -> expsimple opcomparacion expsimple .)
+    RPARENT         reduce using rule 15 (exp -> expsimple opcomparacion expsimple .)
+    CIERRE          reduce using rule 15 (exp -> expsimple opcomparacion expsimple .)
+    PLUS            shift and go to state 50
+    MINUS           shift and go to state 51
+
+    opsuma                         shift and go to state 57
+
+state 72
+
+    (25) expsimple -> expsimple opsuma term .
+    (27) term -> term . opmult factor
+    (40) opmult -> . TIMES
+    (41) opmult -> . DIV
+    (42) opmult -> . MODULO
+    (43) opmult -> . EXPONENCIACION
+
+    PLUS            reduce using rule 25 (expsimple -> expsimple opsuma term .)
+    MINUS           reduce using rule 25 (expsimple -> expsimple opsuma term .)
+    IGUAL           reduce using rule 25 (expsimple -> expsimple opsuma term .)
+    NOIGUAL         reduce using rule 25 (expsimple -> expsimple opsuma term .)
+    IDENTICO        reduce using rule 25 (expsimple -> expsimple opsuma term .)
+    MAYOR           reduce using rule 25 (expsimple -> expsimple opsuma term .)
+    MAYORIG         reduce using rule 25 (expsimple -> expsimple opsuma term .)
+    MENOR           reduce using rule 25 (expsimple -> expsimple opsuma term .)
+    MENORIG         reduce using rule 25 (expsimple -> expsimple opsuma term .)
+    RPARENT         reduce using rule 25 (expsimple -> expsimple opsuma term .)
+    COMMA           reduce using rule 25 (expsimple -> expsimple opsuma term .)
+    CIERRE          reduce using rule 25 (expsimple -> expsimple opsuma term .)
+    TIMES           shift and go to state 43
+    DIV             shift and go to state 41
+    MODULO          shift and go to state 42
+    EXPONENCIACION  shift and go to state 40
+
+    opmult                         shift and go to state 44
+
+state 73
+
+    (55) var_declaration_gen -> PLUS PLUS ID .
+
+    COMMA           reduce using rule 55 (var_declaration_gen -> PLUS PLUS ID .)
+    RPARENT         reduce using rule 55 (var_declaration_gen -> PLUS PLUS ID .)
+
+
+state 74
+
+    (61) arg -> type COMMA arg .
+
+    RPARENT         reduce using rule 61 (arg -> type COMMA arg .)
+
+
+state 75
+
+    (65) arg -> STRING COMMA arg .
+
+    RPARENT         reduce using rule 65 (arg -> STRING COMMA arg .)
+
+
+state 76
+
+    (54) var_declaration_gen -> MINUS MINUS ID .
+
+    COMMA           reduce using rule 54 (var_declaration_gen -> MINUS MINUS ID .)
+    RPARENT         reduce using rule 54 (var_declaration_gen -> MINUS MINUS ID .)
+
+
+state 77
+
+    (66) arg -> STRINGG COMMA arg .
+
+    RPARENT         reduce using rule 66 (arg -> STRINGG COMMA arg .)
+
+
+state 78
+
+    (52) var_declaration_gen -> ID PLUS PLUS .
+
+    COMMA           reduce using rule 52 (var_declaration_gen -> ID PLUS PLUS .)
+    RPARENT         reduce using rule 52 (var_declaration_gen -> ID PLUS PLUS .)
+
+
+state 79
+
+    (53) var_declaration_gen -> ID MINUS MINUS .
+
+    COMMA           reduce using rule 53 (var_declaration_gen -> ID MINUS MINUS .)
+    RPARENT         reduce using rule 53 (var_declaration_gen -> ID MINUS MINUS .)
+
+
+state 80
+
+    (64) arg -> var_declaration_gen COMMA arg .
+
+    RPARENT         reduce using rule 64 (arg -> var_declaration_gen COMMA arg .)
+
+
+state 81
+
+    (16) exp -> LPARENT expsimple opcomparacion expsimple . RPARENT
+    (25) expsimple -> expsimple . opsuma term
+    (38) opsuma -> . PLUS
+    (39) opsuma -> . MINUS
+
+    RPARENT         shift and go to state 82
+    PLUS            shift and go to state 50
+    MINUS           shift and go to state 51
+
+    opsuma                         shift and go to state 57
+
+state 82
+
+    (16) exp -> LPARENT expsimple opcomparacion expsimple RPARENT .
+
+    COMMA           reduce using rule 16 (exp -> LPARENT expsimple opcomparacion expsimple RPARENT .)
+    RPARENT         reduce using rule 16 (exp -> LPARENT expsimple opcomparacion expsimple RPARENT .)
+    CIERRE          reduce using rule 16 (exp -> LPARENT expsimple opcomparacion expsimple RPARENT .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for COMMA in state 29 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 31 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 32 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 32 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 35 resolved as shift
+WARNING: reduce/reduce conflict in state 25 resolved using rule (type -> typevar)
+WARNING: rejected rule (var_declaration_gen -> typevar) in state 25
+WARNING: reduce/reduce conflict in state 29 resolved using rule (typevar -> STRING)
+WARNING: rejected rule (arg -> STRING) in state 29
+WARNING: reduce/reduce conflict in state 31 resolved using rule (typevar -> STRINGG)
+WARNING: rejected rule (arg -> STRINGG) in state 31
+WARNING: reduce/reduce conflict in state 32 resolved using rule (factor -> ID)
+WARNING: rejected rule (var_declaration_gen -> ID) in state 32
+WARNING: reduce/reduce conflict in state 34 resolved using rule (factor -> INTEGER)
+WARNING: rejected rule (typevar -> INTEGER) in state 34
+WARNING: reduce/reduce conflict in state 35 resolved using rule (type -> var_declaration_gen)
+WARNING: rejected rule (arg -> var_declaration_gen) in state 35
+WARNING: reduce/reduce conflict in state 38 resolved using rule (exp -> expsimple)
+WARNING: rejected rule (arg -> expsimple) in state 38
+WARNING: Rule (var_declaration_gen -> typevar) is never reduced
+WARNING: Rule (arg -> STRING) is never reduced
+WARNING: Rule (arg -> STRINGG) is never reduced
+WARNING: Rule (var_declaration_gen -> ID) is never reduced
+WARNING: Rule (typevar -> INTEGER) is never reduced
+WARNING: Rule (arg -> var_declaration_gen) is never reduced
+WARNING: Rule (arg -> expsimple) is never reduced

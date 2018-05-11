@@ -69,7 +69,7 @@ tokens = [
 'DO',
 'FOR',
 
-
+'COMMA',
 'CIERRE',
 ]
 
@@ -78,7 +78,7 @@ tokens = [
 t_ignore = ' \t'
 
 
-
+t_COMMA = r','
 t_DOSPUNTOS = r':'
 t_LPARENT = r'\('
 t_RPARENT = r'\)'
@@ -125,7 +125,7 @@ def t_comments_C99(t):
 def t_INCLUDE(t):
     r'include'
     return t
-    
+
 def t_ID(t):
     r'\$(_)?[0-9]*[a-zA-Z][a-zA-Z_0-9]*|\$(_)?[0-9]*'
     return t
