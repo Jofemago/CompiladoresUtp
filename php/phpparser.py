@@ -23,13 +23,48 @@ def p_declaracion_sentencias(p):
 def p_sentencias(p):
     '''sentencias : sentassign
                     | call_function CIERRE
+                    | sentif
+                    | sentecho
+                    | sentfunc
+                    | sentreturn
+                    | sentfor
+                    | sentwhile
+                    | sentdowhile
                     '''
     pass
 
+#sentencia return
+def p_sentreturn(p):
+    '''sentreturn : RETURN type CIERRE
+                    | RETURN cond CIERRE'''
 
+# sentencia para imprimir
+def p_sentecho(p):
+    '''sentecho : ECHO typevar CIERRE
+                | ECHO exp CIERRE
+                | ECHO cond CIERRE'''
+    pass
+
+# para el if, else if, else
+def p_sentif(p):
+    '''sentif : IF genif auxsentif'''
+    pass
+
+def p_auxsentif(p):
+    '''auxsentif : ELSE IF genif auxsentif
+                    | ELSE LCURBRACE declaracion_sentencias RCURBRACE
+                    | empty'''
+    pass
+
+def p_generatorif(p):
+
+    '''genif : LPARENT cond RPARENT LCURBRACE declaracion_sentencias RCURBRACE'''
+    pass
 #asignaciones
 def p_sentassign(p):
-    '''sentassign :  ID EQUAL exp CIERRE'''
+    '''sentassign :  ID EQUAL exp CIERRE
+                    | ID PLUS PLUS CIERRE
+                    | ID MINUS MINUS CIERRE'''
     pass
 
 
@@ -145,14 +180,40 @@ def p_arg(p):
             |'''
 	pass
 
-#referente a funciones
+def p_arg2(p):
+	'''argfunc : ID
+			| ID COMMA argfunc
+            |'''
+	pass
 
+#referente a funciones
+#declara funcionees
+def p_sentfunc(p):
+    '''sentfunc : FUNCTION NFUNCTION LPARENT argfunc RPARENT LCURBRACE declaracion_sentencias RCURBRACE'''
+    pass
 
 # para el llamado de las funciones
 def p_call_function(p):
 	'''call_function : NFUNCTION
 						| NFUNCTION LPARENT arg RPARENT'''
 	pass
+
+#secuencias de los ciclos
+def p_sentfor(p):
+    '''sentfor : FOR LPARENT ID EQUAL expsimple CIERRE cond CIERRE expsimple  RPARENT LCURBRACE  declaracion_sentencias RCURBRACE
+                | FOR LPARENT ID EQUAL expsimple CIERRE cond CIERRE ID PLUS PLUS  RPARENT LCURBRACE  declaracion_sentencias RCURBRACE
+                | FOR LPARENT ID EQUAL expsimple CIERRE cond CIERRE ID MINUS MINUS  RPARENT LCURBRACE  declaracion_sentencias RCURBRACE'''
+    pass
+
+
+def p_sentwhile(p):
+    '''sentwhile : WHILE LPARENT cond RPARENT LCURBRACE declaracion_sentencias RCURBRACE '''
+    pass
+
+def p_sentdowhile(p):
+    '''sentdowhile : DO LCURBRACE  declaracion_sentencias RCURBRACE WHILE LPARENT cond RPARENT CIERRE'''
+    pass
+
 #importaciones dentro de php
 def p_import(p):
     '''import : INCLUDE STRINGG CIERRE'''

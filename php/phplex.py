@@ -9,7 +9,7 @@ tokens = [
 'FALSE',
 'IF',
 'ELSE',
-'ELSEIF',
+#'ELSEIF',
 'ECHO',
 'FUNCTION',
 'NFUNCTION',
@@ -71,6 +71,7 @@ tokens = [
 
 'COMMA',
 'CIERRE',
+'RETURN',
 ]
 
 
@@ -126,6 +127,11 @@ def t_INCLUDE(t):
     r'include'
     return t
 
+def t_RETURN(t):
+    r'return'
+    return t
+
+    
 def t_ID(t):
     r'\$(_)?[0-9]*[a-zA-Z][a-zA-Z_0-9]*|\$(_)?[0-9]*'
     return t
@@ -170,9 +176,10 @@ def t_ELSE(t):
     r'else'
     return t
 
+'''
 def t_ELSEIF(t):
     r'elseif'
-    return t
+    return t'''
 
 def t_ECHO(t):
     r'echo'

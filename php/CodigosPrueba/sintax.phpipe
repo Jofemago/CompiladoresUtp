@@ -10,4 +10,41 @@ $d = hola(5, 25 +5, 'hola', 5 > 3);
 
 hola(5, 25 +5, 'hola', 5 > 3, $a);
 
-// nooo
+
+
+if ($a > 2 and True){
+  $a = 5;
+}else {
+  $a = 6;
+}
+
+function pruebafor(){
+for( $i = 0; $i<5; $i++ ) {
+          $a = 10;
+          $b = 5;
+       }
+}
+function foo($arg_1, $arg_2)
+{
+    echo "Funcion de ejemplo";
+    if ($a > 2 and True){
+      $a = 5;
+    }else {
+      $a = 6;
+    }
+
+
+    return ( 5 > 3 and (7 *8) == 3);
+}
+
+
+while( $i < 10) {
+            $num--;
+            $i++;
+         }
+
+         do {
+                     $i++;
+                  }
+
+                  while( $i < 10 );
